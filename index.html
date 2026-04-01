@@ -734,7 +734,7 @@
       whatsapp: "5538997287061",
       whatsappDisplay: "(38) 99728-7061",
       address: "Rotatória saída para Manga — Itacarambi/MG",
-      schedule: { openDays: [2,3,4,5,6], openHour: 19, closeHour: 22, openMinute: 0 }, // Terça a Sábado das 19:00 às 22:00
+      schedule: { openDays: [2,3,4,5,6], openHour: 19, closeHour: 22, openMinute: 0 },
       deliveryFee: 2.00,
       currency: "BRL"
     };
@@ -742,28 +742,29 @@
     const MENU = [
       // Espetinhos
       { id:"esp_carne", cat:"Espetinhos", name:"Espetinho de Carne", desc:"Carne bovina selecionada", price:7.00, img:"carne.webp", tag:"Mais vendido" },
-      { id:"esp_frango", cat:"Espetinhos", name:"Espetinho de Frango", desc:"Frango temperado", price:6.00, img:"frango.webp" },
-      { id:"esp_coracao", cat:"Espetinhos", name:"Espetinho de Coração", desc:"Coração de frango", price:6.00, img:"coração.png", tag:"Especial" },
-      { id:"esp_linguica", cat:"Espetinhos", name:"Espetinho de Linguiça", desc:"Linguiça toscana", price:6.00, img:"luiguiça.jpg" },
-      { id:"esp_porco", cat:"Espetinhos", name:"Espetinho de Porco", desc:"Carne suína", price:6.00, img:"costelinha.jpg" },
-      { id:"esp_medalhao_queijo", cat:"Espetinhos", name:"Espetinho de Medalhão de Queijo", desc:"Medalhão de queijo", price:6.00, img:"medalhãoqueijo.jpg" },
       { id:"esp_medalhao_frango", cat:"Espetinhos", name:"Espetinho de Medalhão de Frango", desc:"Medalhão de frango", price:7.00, img:"medalhão frango.webp" },
-     
-      // Cervejas e Bebidas
-      { id:"cerveja_brahma_litr", cat:"Bebidas", name:"Brahma Litrinho", desc:"Brahma", price:4.00, img:"litrinhobrhama.webp" },
-      { id:"cerveja_boa_litr", cat:"Bebidas", name:"Boa Litrinho", desc:"Boa", price:4.00, img:"litrinhoboa.webp" },
-      { id:"cerveja_brahma_latao", cat:"Bebidas", name:"Cerveja Latão Brahma", desc:"Brahma/473ml", price:7.00, img:"bramalata.webp" },
-      { id:"cerveja_boa_latao", cat:"Bebidas", name:"Cerveja Latão Boa", desc:"Boa/473ml", price:7.00, img:"boa.webp" },
+      { id:"esp_medalhao_queijo", cat:"Espetinhos", name:"Espetinho de Medalhão de Queijo", desc:"Medalhão de queijo", price:6.00, img:"medalhãoqueijo.jpg" },
+      { id:"esp_frango", cat:"Espetinhos", name:"Espetinho de Frango", desc:"Frango temperado", price:6.00, img:"frango.webp" },
+      { id:"esp_porco", cat:"Espetinhos", name:"Espetinho de Porco", desc:"Carne suína", price:6.00, img:"costelinha.jpg" },
+      { id:"esp_linguica", cat:"Espetinhos", name:"Espetinho de Linguiça", desc:"Linguiça toscana", price:6.00, img:"linguiça.jpg" },
+      { id:"esp_coracao", cat:"Espetinhos", name:"Espetinho de Coração", desc:"Coração de frango", price:6.00, img:"coração.png", tag:"Especial" },
+      { id:"feijao_tropeiro", cat:"Acompanhamentos", name:"Feijão Tropeiro", desc:"Feijão Tropeiro tradicional", price:10.00, img:"feijão.jpg" },
+      { id:"arroz", cat:"Acompanhamentos", name:"Arroz", desc:"Arroz branco soltinho", price:5.00, img:"arroz.jpg" },
+      { id:"cerveja_brahma_litr", cat:"Bebidas", name:"Brahma Litrinho", desc:"Brahma 330ml", price:4.00, img:"litrinhobrhama.webp" },
+      { id:"cerveja_boa_litr", cat:"Bebidas", name:"Boa Litrinho", desc:"Boa 330ml", price:4.00, img:"litrinhoboa.webp" },
+      { id:"cerveja_brahma_latao", cat:"Bebidas", name:"Cerveja Latão Brahma", desc:"Brahma 473ml", price:7.00, img:"bramalata.webp" },
+      { id:"cerveja_boa_latao", cat:"Bebidas", name:"Cerveja Latão Boa", desc:"Boa 473ml", price:7.00, img:"boa.webp" },
       { id:"heineken", cat:"Bebidas", name:"Cerveja Heineken", desc:"Long neck 330ml", price:9.00, img:"haineken.png", tag:"Premium" },
-      
-      // Outras bebidas
-    
-      { id:"refri_lata", cat:"Bebidas", name:"Refri Lata", desc:"Refri 350ml", price:4.50, img:"refri.jpg" },
-      { id:"refri_guarana_1l", cat:"Bebidas", name:"Guaraná 1L", desc:"Guaraná 1L", price:8.00, img:"guara1l.webp" },
-      { id:"refri_pepsi_1l", cat:"Bebidas", name:"Pepsi 1L", desc:"Pepsi 1L", price:8.00, img:"pepsi1l.webp" },
-      { id:"suco_natural", cat:"Bebidas", name:"Suco natural", desc:"Suco natural", price:5.00, img:"suco.jpg" },
+      { id:"stella", cat:"Bebidas", name:"Cerveja Stella", desc:"Long neck 330ml", price:9.00, img:"stella.webp", tag:"Premium" },
+      { id:"coca_lata", cat:"Bebidas", name:"Coca-Cola", desc:"Refri 350ml", price:5.00, img:"cocalata.jpg" },
+      { id:"coca_zero_lata", cat:"Bebidas", name:"Coca-Cola zero", desc:"Refri zero 350ml", price:5.00, img:"cocalatazero.webp" },
+      { id:"guarana_lata", cat:"Bebidas", name:"Guaraná", desc:"Refri 350ml", price:4.50, img:"guaranalata.webp" },
+      { id:"pepsi_lata", cat:"Bebidas", name:"Pepsi", desc:"Refri 350ml", price:4.50, img:"peps.jpg" },
+      { id:"guarana_1l", cat:"Bebidas", name:"Guaraná 1L", desc:"Guaraná 1 litro", price:8.00, img:"guara1l.webp" },
+      { id:"pepsi_1l", cat:"Bebidas", name:"Pepsi 1L", desc:"Pepsi 1 litro", price:8.00, img:"pepsi1l.webp" },
+      { id:"suco_natural", cat:"Bebidas", name:"Suco natural", desc:"Suco natural da fruta", price:5.00, img:"suco.jpg" },
       { id:"agua_sem_gas", cat:"Bebidas", name:"Água sem gás", desc:"500ml", price:2.50, img:"agua.webp" },
-      { id:"agua_com_gas", cat:"Bebidas", name:"Água com gás", desc:"500ml", price:2.50, img:"aguagas.jpg" },
+      { id:"agua_com_gas", cat:"Bebidas", name:"Água com gás", desc:"500ml", price:2.50, img:"aguagas.jpg" }
     ];
 
     const state = {
@@ -797,16 +798,13 @@
 
     function isOpenNow(){
       const now = new Date();
-      const day = now.getDay(); // 0 = domingo, 1 = segunda, ..., 6 = sábado
+      const day = now.getDay();
       const hour = now.getHours();
       const minute = now.getMinutes();
       const s = RESTAURANT.schedule;
       
-      // Terça a Sábado (dias 2-6) das 19:00 às 22:00
       if (!s.openDays.includes(day)) return false;
-      
       if (hour < s.openHour || hour >= s.closeHour) return false;
-      
       return true;
     }
 
@@ -867,7 +865,8 @@
     function del(id){
       delete state.cart[id];
       saveCart(); 
-      renderCart();
+      renderBadge();
+      if(drawer.classList.contains("open")) renderCart();
     }
 
     function categories(){
@@ -903,7 +902,7 @@
 
         const thumb=document.createElement("div");
         thumb.className="thumb";
-        thumb.innerHTML=`<img src="${it.img}" alt="${it.name}" loading="lazy">`;
+        thumb.innerHTML=`<img src="${it.img}" alt="${it.name}" loading="lazy" onerror="this.src='https://placehold.co/400x300?text=Espetinho'">`;
         if(it.tag){
           const b=document.createElement("div");
           b.className="badge";
@@ -969,7 +968,7 @@
           const row=document.createElement("div");
           row.className="lineitem";
           row.innerHTML=
-            `<img src="${it.img}" alt="${it.name}">
+            `<img src="${it.img}" alt="${it.name}" onerror="this.src='https://placehold.co/48x48?text=Food'">
             <div>
               <div class="li-title">${it.name}</div>
               <div class="li-sub">${qty} × ${money(it.price)} = <b style="color:var(--text)">${money(it.price*qty)}</b></div>
@@ -983,7 +982,7 @@
           const [m,p,t]=row.querySelectorAll("button");
           m.onclick=()=>{sub(id);renderCart();};
           p.onclick=()=>{add(id);renderCart();};
-          t.onclick=()=>{del(id);};
+          t.onclick=()=>{del(id);renderCart();};
 
           cartItemsEl.appendChild(row);
         }
@@ -1035,7 +1034,11 @@
     function updateModeUI(){
       const isDelivery = cMode.value === "Entrega";
       addrRow.style.display = isDelivery ? "grid" : "none";
-      cAddress.required = isDelivery;
+      if(isDelivery){
+        cAddress.required = true;
+      } else {
+        cAddress.required = false;
+      }
     }
     
     function updateChangeUI(){
@@ -1133,6 +1136,7 @@
         state.cart={}; 
         saveCart(); 
         renderCart();
+        renderBadge();
       }
     };
 
