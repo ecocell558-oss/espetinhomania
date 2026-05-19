@@ -877,7 +877,7 @@
       msg += `\n*Subtotal:* ${formatMoney(sub)}\n*Taxa entrega:* ${formatMoney(fee)}\n*Total:* ${formatMoney(sub + fee)}\n`;
       const obs = document.getElementById('orderObs').value.trim();
       if (obs) msg += `\n*Observações:* ${obs}\n`;
-      msg += `\n📍 ${CONFIG.address}\n📱 ${CONFIG.whatsapp}`;
+      msg += `\n📍 ${CONFIG.address}\n ${CONFIG.whatsapp}`;
       
       const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
       closeCheckout();
