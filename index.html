@@ -677,7 +677,7 @@
       </div>
       <textarea id="orderObs" placeholder="Observações adicionais" rows="2" style="margin-top: 12px;"></textarea>
     </div>
-    <div class="drawer-footer"><button class="btn-icon" id="sendOrderBtn" style="background: #25D366; color: white; border: none; width: 100%; padding: 14px; font-weight: 700;">📲 ENVIAR PARA WHATSAPP</button></div>
+    <div class="drawer-footer"><button class="btn-icon" id="sendOrderBtn" style="background: #25D366; color: white; border: none; width: 100%; padding: 14px; font-weight: 700;"> ENVIAR PARA WHATSAPP</button></div>
   </div>
 
   <script>
@@ -877,7 +877,7 @@
       msg += `\n*Subtotal:* ${formatMoney(sub)}\n*Taxa entrega:* ${formatMoney(fee)}\n*Total:* ${formatMoney(sub + fee)}\n`;
       const obs = document.getElementById('orderObs').value.trim();
       if (obs) msg += `\n*Observações:* ${obs}\n`;
-      msg += `\n📍 ${CONFIG.address}\n ${CONFIG.whatsapp}`;
+      msg += `\n📍 ${CONFIG.address}\n📲 ${CONFIG.whatsapp}`;
       
       const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
       closeCheckout();
