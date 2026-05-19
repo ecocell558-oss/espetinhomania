@@ -1,1209 +1,842 @@
-<!doctype html>
+
+
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <title>Espetinho Mania — Delivery</title>
-  <meta name="description" content="Espetinho Mania — Monte seu pedido e finalize pelo WhatsApp" />
-  <meta name="theme-color" content="#0b0f14" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover" />
+  <title>Espetinho Mania | Cardápio Premium • Delivery</title>
+  <meta name="description" content="O melhor espetinho de Itacarambi. Peça online com entrega rápida e pagamento facilitado." />
+  <meta name="theme-color" content="#f59e0b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
 
   <style>
-    :root{
-      --bg:#f8fafc;
-      --card:#ffffff;
-      --card2:#f1f5f9;
-      --text:#0b1220;
-      --muted:#475569;
-      --brand:#f59e0b;
-      --brand2:#ef4444;
-      --ok:#16a34a;
-      --warn:#d97706;
-      --border:rgba(2,6,23,.14);
-      --shadow: 0 16px 40px rgba(2,6,23,.10);
-      --r:18px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
-    *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:
-        radial-gradient(1200px 800px at 15% 10%, rgba(255,176,32,.22), transparent 55%),
-        radial-gradient(900px 700px at 90% 20%, rgba(255,77,90,.18), transparent 60%),
-        var(--bg);
-      color:var(--text);
+
+    :root {
+      --primary: #f59e0b;
+      --primary-dark: #ea580c;
+      --primary-light: #ffedd5;
+      --primary-gradient: linear-gradient(135deg, #f59e0b, #ea580c);
+      --secondary: #2c241a;
+      --secondary-light: #4a3b2c;
+      --bg: #fefaf5;
+      --surface: #ffffff;
+      --text: #1f1a15;
+      --text-light: #7a6a5a;
+      --text-muted: #9e8e7a;
+      --border: rgba(0, 0, 0, 0.06);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
       overflow-x: hidden;
+    }
+
+    /* === HERO COM SLIDESHOW === */
+    .hero {
+      position: relative;
       width: 100%;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-    a{color:inherit}
-    .container{max-width:1150px;margin:0 auto;padding:12px;width:100%;}
-    
-    .topbar{
-      position:sticky;top:0;z-index:50;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(to bottom, rgba(248,250,252,.98), rgba(248,250,252,.92));
-      border-bottom:1px solid var(--border);
-      width:100%;
+
+    .slides-container {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
     }
-    .topbar-inner{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      justify-content:space-between;
-      padding:8px 12px;
-      max-width:1150px;
-      margin:0 auto;
-      width:100%;
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center 25%;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      min-width:auto;
-      flex-shrink: 1;
+
+    .slide-bg.active {
+      opacity: 1;
+      z-index: 1;
     }
-    .logo{
-      width:42px;
-      height:42px;
-      border-radius:999px;
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.35) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem;
+      max-width: 800px;
+      animation: fadeUp 0.8s ease-out;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
       object-fit: cover;
-      border: 1px solid var(--border);
-      flex-shrink:0;
+      border: 4px solid var(--primary);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+      margin-bottom: 1rem;
+      background: white;
     }
-    .title{display:flex;flex-direction:column;line-height:1.05}
-    .title strong{font-size:14px;letter-spacing:.2px;white-space: nowrap;}
-    .title span{font-size:11px;color:var(--muted);white-space: nowrap;}
-    
-    .search{
-      flex:1;display:flex;max-width:520px;gap:10px;align-items:center;
-      padding:8px 12px;border-radius:14px;border:1px solid var(--border);
-      background: rgba(15,23,42,.03);
+
+    .hero h1 {
+      font-size: clamp(2rem, 8vw, 4.5rem);
+      font-weight: 800;
+      color: white;
+      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.02em;
     }
-    .search input{width:100%;background:transparent;border:none;outline:none;color:var(--text);font-size:14px}
-    
-    .actions{
-      display:flex;
-      gap:6px;
-      align-items:center;
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: rgba(255, 248, 235, 0.95);
+      margin: 0.5rem 0 1rem;
+      font-weight: 500;
+    }
+
+    .hero-hours {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(12px);
+      padding: 8px 22px;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #fff5e8;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-hero {
+      background: var(--primary-gradient);
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 60px;
+      color: #1a120c;
+      font-weight: 800;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-hero:active { transform: scale(0.97); }
+
+    /* Topbar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      backdrop-filter: blur(20px);
+      background: rgba(255, 252, 245, 0.96);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       flex-shrink: 0;
     }
-    .pill{
-      display:inline-flex;align-items:center;gap:4px;
-      padding:6px 8px;border-radius:999px;background: rgba(15,23,42,.04);
-      border:1px solid var(--border);font-size:11px;white-space:nowrap;
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 30px;
+      object-fit: cover;
     }
-    .pill .dot{width:6px;height:6px;border-radius:999px;background:var(--warn)}
-    .pill.open .dot{background:var(--ok)}
-    
-    .btn{
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.04);
-      color:var(--text);
-      padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:700;font-size:13px;
-      display:inline-flex;gap:8px;align-items:center;
-      min-height: 44px;
-      touch-action: manipulation;
+
+    .brand-text strong { font-size: 0.95rem; font-weight: 800; display: block; }
+    .brand-text span { font-size: 0.65rem; color: var(--text-light); }
+
+    .search-bar {
+      flex: 1;
+      max-width: 360px;
+      background: white;
+      border-radius: 48px;
+      padding: 10px 18px;
+      display: flex;
+      gap: 10px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
     }
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(255,176,32,.95), rgba(255,77,90,.95));
-      color:#111;border:none;
+    .search-bar input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 0.9rem;
     }
-    .btn:active{transform: translateY(1px); opacity:0.9;}
-    
-    .hero{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:12px;
-      padding:12px 0 4px;
-      align-items:stretch;
+
+    .status-indicator {
+      background: rgba(0, 0, 0, 0.04);
+      padding: 6px 16px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
     }
-    
-    .card{
-      border:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(241,245,249,.92));
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      padding:16px;
-      position:relative;
-      overflow:hidden;
+    .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #dc2626; }
+    .status-indicator.open .status-dot { background: #16a34a; }
+
+    .btn-icon {
+      border: 1px solid var(--border);
+      background: white;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
     }
-    .card h1{margin:0 0 8px;font-size:20px;line-height:1.3;}
-    .card p{margin:0 0 12px;color:var(--muted);line-height:1.4;font-size:14px;}
-    
-    .hero-grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap:8px;
-      margin-bottom:12px;
+
+    /* === INFO SECTION PROFISSIONAL === */
+    .info-premium {
+      max-width: 1280px;
+      margin: 28px auto 0;
+      padding: 0 20px;
     }
-    .mini{
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.03);
-      padding:10px;border-radius:14px;
-      display:flex;flex-direction:column;gap:2px;
+
+    .info-grid-premium {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
     }
-    .mini b{font-size:12px}
-    .mini span{font-size:11px;color:var(--muted);word-break:break-word;}
-    
-    .notice{
-      padding:10px 12px;border-radius:14px;
-      border:1px dashed rgba(255,176,32,.45);
-      background: rgba(255,176,32,.08);
-      font-size:13px;line-height:1.35;
-    }
-    
-    .info{
-      border:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(241,245,249,.88));
-      border-radius: var(--r);box-shadow: var(--shadow);
-      padding:16px;display:flex;flex-direction:column;gap:10px;
-    }
-    .line{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted)}
-    .line b{color:var(--text);font-weight:750}
-    
-    .closed{
-      display:none;
-      margin-top:10px;
-      padding:10px 12px;border-radius:14px;
-      border:1px solid rgba(245,158,11,.45);
-      background: rgba(245,158,11,.12);
-      font-size:13px;line-height:1.35;
-    }
-    
-    .tabs{
-      display:flex;
-      gap:8px;
-      flex-wrap:nowrap;
-      overflow-x:auto;
-      padding:12px 0 8px;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      white-space: nowrap;
-    }
-    .tabs::-webkit-scrollbar{
-      height:4px;
-    }
-    .tabs::-webkit-scrollbar-thumb{
-      background: rgba(2,6,23,.2);
-      border-radius:4px;
-    }
-    
-    .chip{
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.03);
-      font-size:13px;
-      cursor:pointer;
-      user-select:none;
-      display:inline-block;
-      flex-shrink:0;
-      touch-action: manipulation;
-      min-height: 42px;
-      min-width: 70px;
+
+    .info-card-premium {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 20px 16px;
       text-align: center;
-    }
-    .chip.active{background: rgba(255,176,32,.16);border-color: rgba(255,176,32,.35)}
-    
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:12px;
-      padding:12px 0 100px;
-      width:100%;
-    }
-    
-    .item{
-      border:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(241,245,249,.90));
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      height:100%;
-    }
-    .thumb{
-      width:100%;
-      height:140px;
-      background:#f1f5f9;
-      position:relative;
-    }
-    .thumb img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .badge{
-      position:absolute;
-      top:8px;left:8px;
-      padding:4px 8px;
-      border-radius:999px;
-      background: rgba(245,158,11,.92);
-      border:1px solid rgba(245,158,11,.65);
-      font-size:10px;
-      font-weight:900;
-      color:#0b1220;
-      z-index:2;
-    }
-    .content{
-      padding:10px 10px 12px;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      flex:1;
-    }
-    .name{font-weight:850;font-size:14px;line-height:1.3;}
-    .desc{font-size:11px;color:var(--muted);line-height:1.3;min-height:28px;}
-    .row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;}
-    .price{font-weight:900;font-size:14px;color: rgba(239,68,68,.95);}
-    .qty{display:flex;align-items:center;gap:6px;}
-    .iconbtn{
-      width:40px;
-      height:40px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background: rgba(2,6,23,.04);
-      color:var(--text);
-      cursor:pointer;
-      font-weight:900;
-      display:grid;
-      place-items:center;
-      font-size:18px;
-      touch-action: manipulation;
-      min-width: 44px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
     }
 
-    .cart-fab{
-      position:fixed;
-      right:16px;
-      bottom:16px;
-      z-index:60;
-      display:flex;
-      gap:10px;
-      align-items:center;
+    .info-card-premium:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(245, 158, 11, 0.2);
     }
-    .fab{
-      border:none;
-      background: linear-gradient(135deg, rgba(255,176,32,.95), rgba(255,77,90,.95));
-      color:#111;
-      padding:14px 20px;
-      border-radius:30px;
-      cursor:pointer;
-      box-shadow: var(--shadow);
-      font-weight:950;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      font-size:15px;
-      min-height: 56px;
-      touch-action: manipulation;
-    }
-    .count{
-      background: rgba(0,0,0,.18);
-      padding:6px 12px;
-      border-radius:999px;
-      font-weight:950;
-    }
-    
-    .backdrop{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,.55);
-      display:none;
-      z-index:70;
-    }
-    .drawer{
-      position:fixed;
-      right:0;
-      top:0;
-      height:100%;
-      width:min(420px, 92%);
-      background: linear-gradient(180deg, rgba(248,250,252,.98), rgba(241,245,249,.95));
-      border-left:1px solid var(--border);
-      box-shadow: var(--shadow);
-      transform: translateX(100%);
-      transition:.25s ease;
-      z-index:80;
-      display:flex;
-      flex-direction:column;
-    }
-    .drawer.open{transform: translateX(0)}
-    .backdrop.open{display:block}
-    
-    .dhead{
-      padding:14px 16px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border-bottom:1px solid var(--border);
-    }
-    .dhead b{font-size:16px}
-    .dhead .btn{min-height:40px;}
-    
-    .dbody{
-      padding:12px 14px;
-      overflow-y:auto;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      flex:1;
-    }
-    
-    .lineitem{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.5);
-      border-radius: 16px;
-      padding:10px;
-      display:grid;
-      grid-template-columns: 48px 1fr auto;
-      gap:8px;
-      align-items:center;
-    }
-    .lineitem img{
-      width:48px;
-      height:48px;
-      border-radius:12px;
-      object-fit:cover;
-      border:1px solid var(--border);
-    }
-    .li-title{font-weight:850;font-size:13px;line-height:1.3;}
-    .li-sub{font-size:11px;color:var(--muted);margin-top:2px;}
-    .li-actions{
-      display:flex;
-      align-items:center;
-      gap:4px;
-    }
-    .small{
-      width:36px;
-      height:36px;
-      border-radius:10px;
-      font-size:16px;
-    }
-    .trash{background: rgba(255,77,90,.12);border-color: rgba(255,77,90,.35)}
-    
-    .dfoot{
-      padding:14px 16px 20px;
-      border-top:1px solid var(--border);
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-    .totals{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.5);
-      border-radius:16px;
-      padding:12px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      font-size:13px;
-      color:var(--muted);
-    }
-    .totals .trow{display:flex;justify-content:space-between;gap:10px}
-    .totals .trow b{color:var(--text)}
-    
-    textarea{
-      width:100%;
-      min-height:70px;
-      resize:vertical;
-      border-radius:16px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.5);
-      color:var(--text);
-      padding:12px;
-      outline:none;
-      font-size:14px;
-      font-family: inherit;
-    }
-    
-    .subnote{border-color: rgba(2,6,23,.14)!important;background: rgba(2,6,23,.03)!important}
 
-    .modal-backdrop{
-      position:fixed; inset:0;
-      background: rgba(15,23,42,.45);
-      display:none; z-index:90;
+    .info-icon-premium {
+      width: 56px;
+      height: 56px;
+      background: var(--primary-light);
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 28px;
     }
-    .modal{
-      position:fixed; inset:0;
-      display:none; z-index:100;
-      padding:16px;
-      overflow-y:auto;
-      -webkit-overflow-scrolling: touch;
+
+    .info-title-premium {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-light);
+      font-weight: 600;
+      margin-bottom: 4px;
     }
-    .modal.open, .modal-backdrop.open{display:block}
-    .modal-card{
-      max-width: 760px;
+
+    .info-value-premium {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .info-value-premium.highlight {
+      color: var(--primary-dark);
+    }
+
+    .address-premium {
+      background: linear-gradient(135deg, var(--primary-light), #fff7ed);
+      border-radius: var(--radius-lg);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .address-premium span:first-child {
+      font-size: 1.2rem;
+    }
+
+    .address-premium span:last-child {
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    /* Tabs */
+    .tabs-section {
+      max-width: 1280px;
+      margin: 32px auto 0;
+      padding: 0 20px;
+    }
+    .tabs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scrollbar-width: thin;
+    }
+    .tab {
+      padding: 10px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    /* Menu Grid */
+    .menu-grid {
+      max-width: 1280px;
       margin: 0 auto;
-      background: var(--card);
-      border:1px solid var(--border);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      overflow:hidden;
+      padding: 20px 20px 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
     }
-    .modal-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:12px;
-      padding:16px;
-      border-bottom:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(248,250,252,.98), rgba(241,245,249,.92));
+    .menu-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: all 0.25s;
+      box-shadow: var(--shadow-sm);
     }
-    .modal-title{font-weight:900; font-size:18px}
-    .modal-sub{color:var(--muted); font-size:13px; margin-top:2px}
-    
-    .form{
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:16px;
+    .menu-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .menu-img {
+      height: 170px;
+      background: #f3ede6;
+      position: relative;
+      overflow: hidden;
     }
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
+    .menu-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+    .menu-card:hover .menu-img img { transform: scale(1.03); }
+    .menu-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--primary-gradient);
+      padding: 4px 14px;
+      border-radius: 30px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #1a120c;
     }
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
+    .menu-info { padding: 16px; }
+    .menu-title { font-weight: 800; font-size: 1rem; }
+    .menu-desc { font-size: 0.75rem; color: var(--text-light); margin: 6px 0 12px; line-height: 1.4; }
+    .menu-footer { display: flex; justify-content: space-between; align-items: center; }
+    .menu-price { font-weight: 800; font-size: 1.2rem; color: var(--primary-dark); }
+    .qty-control { display: flex; gap: 10px; }
+    .qty-btn {
+      width: 42px; height: 42px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: #fefaf5;
+      font-weight: 800;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.1s;
     }
-    .field span{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:800;
+    .qty-btn:active { background: #eee; }
+
+    /* Cart Fab */
+    .cart-fab {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 85;
     }
-    .field input, .field select, .field textarea{
-      width:100%;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.5);
-      padding:12px 14px;
-      font-size:16px;
-      color:var(--text);
-      outline:none;
-      font-family: inherit;
+    .cart-button {
+      background: linear-gradient(135deg, var(--secondary), #1a1410);
+      border: none;
+      padding: 14px 26px;
+      border-radius: 60px;
+      color: white;
+      font-weight: 800;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      font-size: 0.95rem;
     }
-    .field input:focus, .field select:focus, .field textarea:focus{
-      border-color: rgba(255,176,32,.65);
-      box-shadow: 0 0 0 4px rgba(255,176,32,.18);
-    }
-    .form-actions{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .form-actions .btn{
-      flex:1;
-      min-height: 50px;
-    }
-    .form-hint{
-      font-size:12px;
-      color:var(--muted);
-      text-align:center;
+    .cart-badge {
+      background: var(--primary);
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-weight: 800;
     }
 
-    @media (max-width: 980px){
-      .hero{grid-template-columns:1fr}
-      .grid{grid-template-columns: repeat(3, minmax(0, 1fr))}
-      .search{display:none}
+    /* Drawer */
+    .drawer {
+      position: fixed;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: min(450px, 90%);
+      background: white;
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+      transform: translateX(100%);
+      transition: transform 0.3s ease-out;
+      z-index: 105;
+      display: flex;
+      flex-direction: column;
     }
-    
-    @media (max-width: 780px){
-      .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
-      .pill span:not(.dot){font-size:0;}
-      .pill .dot{margin-right:0;}
+    .drawer.open { transform: translateX(0); }
+    .drawer-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    .drawer-body { flex: 1; overflow-y: auto; padding: 16px; }
+    .drawer-footer { padding: 20px; border-top: 1px solid #eee; }
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 95;
+      display: none;
     }
-    
-    @media (max-width: 560px){
-      .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
-      .hero-grid{grid-template-columns:1fr;}
+    .backdrop.active { display: block; }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: #fefaf5;
+      border-radius: 20px;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #eee;
     }
-    
-    @media (max-width: 400px){
-      .grid{grid-template-columns: 1fr}
+    .cart-item-img { width: 52px; height: 52px; border-radius: 14px; object-fit: cover; }
+    .totals-card { background: #fef8f0; border-radius: 20px; padding: 14px; margin-bottom: 16px; }
+    .totals-row { display: flex; justify-content: space-between; margin: 8px 0; font-size: 0.9rem; }
+
+    input, select, textarea {
+      border-radius: var(--radius-md);
+      border: 1px solid #ddd;
+      padding: 12px;
+      width: 100%;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: 0.2s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1); }
+
+    @media (max-width: 900px) {
+      .info-grid-premium {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .search-bar { display: none; }
+    }
+
+    @media (max-width: 550px) {
+      .info-grid-premium {
+        grid-template-columns: 1fr;
+      }
+      .hero-logo { width: 90px; height: 90px; }
+      .menu-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
-
 <body>
+
+  <!-- HERO SLIDESHOW -->
+  <section class="hero">
+    <div class="slides-container">
+      <div class="slide-bg" style="background-image: url('Depositphotos_70458789_m-2015-768x512.jpg');"></div>
+      <div class="slide-bg" style="background-image: url('medalhão\ frango.webp');"></div>
+      <div class="slide-bg" style="background-image: url('feijão.jpg');"></div>
+    </div>
+    <div class="hero-content">
+      <img class="hero-logo" src="logo.jpeg" alt="Espetinho Mania" onerror="this.src='https://placehold.co/120x120?text=🍢'">
+      <h1>ESPETINHO MANIA</h1>
+      <div class="hero-tagline">🔥 O verdadeiro sabor da brasa • Itacarambi - MG</div>
+      <div class="hero-hours">🕒 Terça a Sábado • 19h às 22h</div>
+      <button class="btn-hero" id="heroExploreBtn">EXPLORAR CARDÁPIO <span></span></button>
+    </div>
+  </section>
+
+  <!-- TOPBAR -->
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <img class="logo" src="logo.jpeg" alt="Espetinho Mania" />
-        <div class="title">
-          <strong>Espetinho Mania</strong>
-          <span>Itacarambi - MG</span>
-        </div>
+        <img class="brand-logo" src="logo.jpeg" onerror="this.src='https://placehold.co/44x44'">
+        <div class="brand-text"><strong>Espetinho Mania</strong><span>Itacarambi - MG</span></div>
       </div>
-
-      <div class="search">
-        🔎 <input id="searchInput" type="search" placeholder="Buscar no cardápio..." />
-      </div>
-
-      <div class="actions">
-        <div id="statusPill" class="pill">
-          <span class="dot"></span>
-          <span id="statusText">Verificando</span>
-        </div>
-        <button class="btn" id="btnInfo" type="button">📍 Info</button>
+      <div class="search-bar"><span>🔎</span><input type="text" id="searchInput" placeholder="Buscar no cardápio..."></div>
+      <div style="display: flex; gap: 10px;">
+        <div class="status-indicator" id="statusPill"><span class="status-dot"></span><span id="statusText">Verificando</span></div>
+        <button class="btn-icon" id="infoModalBtn">📋 Info</button>
       </div>
     </div>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <div class="card">
-        <h1>🍢 Espetinho Mania - O sabor da noite!</h1>
-        <p>
-          Monte seu pedido aqui e finalize pelo WhatsApp. Tudo fresquinho e preparado na hora!
-        </p>
-
-        <div class="hero-grid">
-          <div class="mini">
-            <b>Horário</b>
-            <span>Terça a Sábado — 19:00 às 22:00</span>
-          </div>
-          <div class="mini">
-            <b>WhatsApp</b>
-            <span>(38) 99728-7061</span>
-          </div>
-          <div class="mini">
-            <b>Endereço</b>
-            <span>Rotatória saída para Manga</span>
-          </div>
-        </div>
-
-        <div id="closedBanner" class="closed">
-          ⏰ Agora estamos <b>fechados</b>. Horário: Terça a Sábado, 19:00 às 22:00.
-        </div>
+  <!-- === INFO SECTION PROFISSIONAL === -->
+  <div class="info-premium">
+    <div class="info-grid-premium">
+      <div class="info-card-premium">
+        <div class="info-icon-premium">🍢</div>
+        <div class="info-title-premium">COMO PEDIR</div>
+        <div class="info-value-premium">Itens → Carrinho → WhatsApp</div>
       </div>
-
-      <aside class="info">
-        <div class="notice">
-          <b>Como pedir:</b> Adicione itens → Confira o carrinho → Finalize no WhatsApp.
-        </div>
-        <div class="line"><span>Taxa de entrega</span><b id="feeTop">R$ 2,00</b></div>
-        <div class="line"><span>Pagamento</span><b>Pix • Dinheiro • Cartão</b></div>
-        <div class="line"><span>Retirada</span><b>Grátis</b></div>
-        <button class="btn primary" id="btnScrollMenu" type="button">🍽️ Ver cardápio</button>
-        <button class="btn" id="btnCall" type="button">📲 Chamar no WhatsApp</button>
-        <div class="notice subnote">
-          <b>Endereço:</b> Rotatória saída para Manga — Itacarambi/MG
-        </div>
-      </aside>
-    </section>
-
-    <section class="tabs" id="tabs"></section>
-    <section class="grid" id="menuGrid"></section>
-  </main>
-
-  <div class="cart-fab">
-    <button class="fab" id="openCart" type="button">
-      🛒 <span class="count" id="cartCount">0</span>
-    </button>
+      <div class="info-card-premium">
+        <div class="info-icon-premium">🚚</div>
+        <div class="info-title-premium">TAXA DE ENTREGA</div>
+        <div class="info-value-premium highlight">R$ 2,00</div>
+      </div>
+      <div class="info-card-premium">
+        <div class="info-icon-premium">💳</div>
+        <div class="info-title-premium">PAGAMENTO</div>
+        <div class="info-value-premium">Pix • Dinheiro • Cartão</div>
+      </div>
+      <div class="info-card-premium">
+        <div class="info-icon-premium">🏠</div>
+        <div class="info-title-premium">RETIRADA</div>
+        <div class="info-value-premium highlight">Grátis no local</div>
+      </div>
+    </div>
+    <div class="address-premium">
+      <span>📍</span>
+      <span>Rotatória saída para Manga — Itacarambi/MG</span>
+    </div>
   </div>
 
-  <div class="backdrop" id="backdrop"></div>
-  <aside class="drawer" id="drawer">
-    <div class="dhead">
-      <b>Seu carrinho</b>
-      <button class="btn" id="closeCart" type="button">✖ Fechar</button>
+  <!-- TABS -->
+  <div class="tabs-section"><div class="tabs" id="tabsContainer"></div></div>
+
+  <!-- MENU GRID -->
+  <div class="menu-grid" id="menuGrid"></div>
+
+  <!-- CART FAB -->
+  <div class="cart-fab"><button class="cart-button" id="cartFabBtn">🛒 <span class="cart-badge" id="cartTotalCount">0</span></button></div>
+
+  <!-- CART DRAWER -->
+  <div class="backdrop" id="cartBackdrop"></div>
+  <div class="drawer" id="cartDrawer">
+    <div class="drawer-header"><b style="font-size: 1.2rem;">Seu carrinho</b><button class="btn-icon" id="closeCartBtn">✖ Fechar</button></div>
+    <div class="drawer-body" id="cartItemsContainer"></div>
+    <div class="drawer-footer">
+      <div class="totals-card"><div class="totals-row"><span>Subtotal</span><b id="subtotalDisplay">R$ 0,00</b></div><div class="totals-row"><span>Taxa entrega</span><b id="feeDisplay">R$ 0,00</b></div><div class="totals-row"><span>Total</span><b id="totalDisplay">R$ 0,00</b></div></div>
+      <textarea id="cartObservation" placeholder="Observações (ponto da carne, sem cebola...)" rows="2"></textarea>
+      <button class="btn-icon" id="finalizeOrderBtn" style="background: var(--primary-gradient); color: white; border: none; width: 100%; margin-top: 12px; padding: 14px; font-weight: 700;">✅ Finalizar pedido</button>
+      <button class="btn-icon" id="clearCartBtn" style="width: 100%; margin-top: 8px;">🧹 Limpar carrinho</button>
     </div>
+  </div>
 
-    <div class="dbody" id="cartItems"></div>
-
-    <div class="dfoot">
-      <div class="totals">
-        <div class="trow"><span>Subtotal</span><b id="subtotalText">R$ 0,00</b></div>
-        <div class="trow"><span>Taxa de entrega</span><b id="feeText">R$ 0,00</b></div>
-        <div class="trow"><span>Total</span><b id="totalText">R$ 0,00</b></div>
+  <!-- CHECKOUT DRAWER -->
+  <div class="backdrop" id="checkoutBackdrop"></div>
+  <div class="drawer" id="checkoutDrawer" style="z-index: 115;">
+    <div class="drawer-header"><b>Dados do pedido</b><button class="btn-icon" id="closeCheckoutBtn">✖</button></div>
+    <div class="drawer-body">
+      <input type="text" id="clientName" placeholder="Seu nome *" style="margin-bottom: 12px;">
+      <input type="tel" id="clientPhone" placeholder="Telefone (opcional)" style="margin-bottom: 12px;">
+      <select id="orderType" style="margin-bottom: 12px;"><option value="Entrega">🚚 Entrega</option><option value="Retirada">🏠 Retirada no local</option></select>
+      <select id="paymentType" style="margin-bottom: 12px;"><option value="Pix">💳 Pix</option><option value="Dinheiro">💵 Dinheiro</option><option value="Cartão">💳 Cartão</option></select>
+      <div id="addressGroup">
+        <input type="text" id="deliveryAddress" placeholder="Endereço completo *" style="margin-bottom: 12px;">
+        <div style="display: flex; gap: 8px;"><input type="text" id="addressComplement" placeholder="Complemento"><input type="text" id="addressReference" placeholder="Referência"></div>
       </div>
-
-      <textarea id="notes" placeholder="Observações (ex: ponto da carne, sem cebola, etc.)"></textarea>
-
-      <button class="btn primary" id="checkoutBtn" type="button">✅ Finalizar no WhatsApp</button>
-      <button class="btn" id="clearBtn" type="button">🧹 Limpar carrinho</button>
-
-      <div class="notice subnote">
-        <b>Importante:</b> informe no WhatsApp o endereço e a forma de pagamento.
+      <div id="changeGroup" style="display: none; margin-top: 12px;">
+        <select id="needChangeSelect" style="margin-bottom: 12px;"><option value="Não">Precisa de troco? Não</option><option value="Sim">Sim, preciso de troco</option></select>
+        <input type="number" id="changeValue" placeholder="Troco para R$" step="0.01">
       </div>
+      <textarea id="orderObs" placeholder="Observações adicionais" rows="2" style="margin-top: 12px;"></textarea>
     </div>
-  </aside>
-
-  <!-- Modal de Checkout -->
-  <div class="modal-backdrop" id="modalBackdrop"></div>
-  <section class="modal" id="checkoutModal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <div>
-          <div class="modal-title">Finalizar pedido</div>
-          <div class="modal-sub">Preencha os dados para enviar ao WhatsApp</div>
-        </div>
-        <button class="btn" id="closeModal" type="button">✖</button>
-      </div>
-
-      <form class="form" id="checkoutForm">
-        <div class="grid2">
-          <label class="field">
-            <span>Nome *</span>
-            <input id="cName" type="text" required placeholder="Seu nome" />
-          </label>
-
-          <label class="field">
-            <span>Telefone</span>
-            <input id="cPhone" type="tel" placeholder="(38) 9xxxx-xxxx" />
-          </label>
-        </div>
-
-        <div class="grid2">
-          <label class="field">
-            <span>Entrega ou Retirada? *</span>
-            <select id="cMode" required>
-              <option value="Entrega">Entrega</option>
-              <option value="Retirada">Retirada no local</option>
-            </select>
-          </label>
-
-          <label class="field">
-            <span>Forma de pagamento *</span>
-            <select id="cPay" required>
-              <option value="Pix">Pix</option>
-              <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão de Crédito">Cartão de Crédito</option>
-              <option value="Cartão de Débito">Cartão de Débito</option>
-            </select>
-          </label>
-        </div>
-
-        <div class="grid2" id="addrRow">
-          <label class="field" style="grid-column: 1 / -1;">
-            <span>Endereço completo *</span>
-            <input id="cAddress" type="text" placeholder="Rua, nº, bairro" />
-          </label>
-
-          <label class="field">
-            <span>Complemento</span>
-            <input id="cComp" type="text" placeholder="Apto, casa..." />
-          </label>
-
-          <label class="field">
-            <span>Referência</span>
-            <input id="cRef" type="text" placeholder="Perto de..." />
-          </label>
-        </div>
-
-        <div class="grid2" id="changeRow">
-          <label class="field">
-            <span>Precisa de troco?</span>
-            <select id="cNeedChange">
-              <option value="Não">Não</option>
-              <option value="Sim">Sim</option>
-            </select>
-          </label>
-
-          <label class="field">
-            <span>Troco para (R$)</span>
-            <input id="cChangeFor" type="number" min="0" step="0.01" placeholder="Ex: 100" disabled />
-          </label>
-        </div>
-
-        <label class="field">
-          <span>Observações</span>
-          <textarea id="cObs" placeholder="Ex: ponto da carne, sem cebola..."></textarea>
-        </label>
-
-        <div class="form-actions">
-          <button class="btn" type="button" id="backToCart">← Voltar</button>
-          <button class="btn primary" type="submit" id="sendWhats">✅ Enviar no WhatsApp</button>
-        </div>
-
-        <div class="form-hint">
-          * Campos obrigatórios
-        </div>
-      </form>
-    </div>
-  </section>
+    <div class="drawer-footer"><button class="btn-icon" id="sendOrderBtn" style="background: #25D366; color: white; border: none; width: 100%; padding: 14px; font-weight: 700;">📲 ENVIAR PARA WHATSAPP</button></div>
+  </div>
 
   <script>
-    const RESTAURANT = {
+    // ========== CONFIGURAÇÃO ==========
+    const CONFIG = {
       name: "Espetinho Mania",
       whatsapp: "5538997287061",
-      whatsappDisplay: "(38) 99728-7061",
       address: "Rotatória saída para Manga — Itacarambi/MG",
-      schedule: { openDays: [2,3,4,5,6], openHour: 19, closeHour: 22, openMinute: 0 },
       deliveryFee: 2.00,
-      currency: "BRL"
+      schedule: { days: [2,3,4,5,6], openHour: 19, closeHour: 22 }
     };
 
     const MENU = [
-      // Espetinhos
-      { id:"esp_carne", cat:"Espetinhos", name:"Espetinho de Carne", desc:"Carne bovina selecionada", price:7.00, img:"carne.webp", tag:"Mais vendido" },
-      { id:"esp_medalhao_frango", cat:"Espetinhos", name:"Espetinho de Medalhão de Frango", desc:"Medalhão de frango", price:7.00, img:"medalhão frango.webp" },
-      { id:"esp_medalhao_queijo", cat:"Espetinhos", name:"Espetinho de Medalhão de Queijo", desc:"Medalhão de queijo", price:6.00, img:"medalhãoqueijo.jpg" },
-      { id:"esp_frango", cat:"Espetinhos", name:"Espetinho de Frango", desc:"Frango temperado", price:6.00, img:"frango.webp" },
-      { id:"esp_porco", cat:"Espetinhos", name:"Espetinho de Porco", desc:"Carne suína", price:6.00, img:"costelinha.jpg" },
-      { id:"esp_linguica", cat:"Espetinhos", name:"Espetinho de Linguiça", desc:"Linguiça toscana", price:6.00, img:"luiguiça.jpg" },
-      { id:"esp_coracao", cat:"Espetinhos", name:"Espetinho de Coração", desc:"Coração de frango", price:6.00, img:"coração.png", tag:"Especial" },
-      { id:"feijao_tropeiro", cat:"Acompanhamentos", name:"Feijão Tropeiro", desc:"Feijão Tropeiro tradicional", price:10.00, img:"feijão.jpg" },
-      { id:"arroz", cat:"Acompanhamentos", name:"Arroz", desc:"Arroz branco soltinho", price:5.00, img:"arroz.jpg" },
-      { id:"cerveja_brahma_latao", cat:"Bebidas", name:"Cerveja Latão Brahma", desc:"Brahma 473ml", price:7.00, img:"brahma.png" },
-      { id:"cerveja_boa_latao", cat:"Bebidas", name:"Cerveja Latão Boa", desc:"Boa 473ml", price:7.00, img:"boa.webp" },
-      { id:"heineken", cat:"Bebidas", name:"Cerveja Heineken", desc:"Long neck 330ml", price:9.00, img:"heineken.png", tag:"Premium" },
-      { id:"stella", cat:"Bebidas", name:"Cerveja Stella", desc:"Long neck 330ml", price:9.00, img:"stella.png", tag:"Premium" },
-      { id:"coca_lata", cat:"Bebidas", name:"Coca-Cola", desc:"Refri 350ml", price:5.00, img:"cocacola.png" },
-      { id:"coca_zero_lata", cat:"Bebidas", name:"Coca-Cola zero", desc:"Refri zero 350ml", price:5.00, img:"cocacolazero.png" },
-      { id:"guarana_lata", cat:"Bebidas", name:"Guaraná", desc:"Refri 350ml", price:4.50, img:"guarana.png" },
-      { id:"pepsi_lata", cat:"Bebidas", name:"Pepsi", desc:"Refri 350ml", price:4.50, img:"pepsi.png" },
-      { id:"guarana_1l", cat:"Bebidas", name:"Guaraná 1L", desc:"Guaraná 1 litro", price:8.00, img:"guarana1l.png" },
-      { id:"pepsi_1l", cat:"Bebidas", name:"Pepsi 1L", desc:"Pepsi 1 litro", price:8.00, img:"pepsi1l.png" },
-      { id:"suco_natural", cat:"Bebidas", name:"Suco natural", desc:"Suco natural da fruta", price:5.00, img:"suco.jpg" },
-      { id:"agua_sem_gas", cat:"Bebidas", name:"Água sem gás", desc:"500ml", price:3.00, img:"agua.png" },
-     
+      { id: "e1", cat: "Espetinhos", name: "Espetinho de Carne", desc: "Carne bovina selecionada", price: 7, img: "carne.webp", tag: "🔥 Mais vendido" },
+      { id: "e2", cat: "Espetinhos", name: "Medalhão de Frango", desc: "Medalhão suculento", price: 7, img: "medalhão frango.webp" },
+      { id: "e3", cat: "Espetinhos", name: "Medalhão de Queijo", desc: "Queijo derretido na brasa", price: 6, img: "medalhãoqueijo.jpg" },
+      { id: "e4", cat: "Espetinhos", name: "Espetinho de Frango", desc: "Frango temperado", price: 6, img: "frango.webp" },
+      { id: "e5", cat: "Espetinhos", name: "Espetinho de Porco", desc: "Carne suína", price: 6, img: "costelinha.jpg" },
+      { id: "e6", cat: "Espetinhos", name: "Espetinho de Linguiça", desc: "Linguiça toscana", price: 6, img: "luiguiça.jpg" },
+      { id: "e7", cat: "Espetinhos", name: "Espetinho de Coração", desc: "Coração de frango", price: 6, img: "coração.png", tag: "⭐ Especial" },
+      { id: "a1", cat: "Acompanhamentos", name: "Feijão Tropeiro", desc: "Feijão tropeiro tradicional", price: 10, img: "feijão.jpg" },
+      { id: "a2", cat: "Acompanhamentos", name: "Arroz Branco", desc: "Arroz soltinho", price: 5, img: "arroz.jpg" },
+      { id: "b1", cat: "Bebidas", name: "Brahma Latão", desc: "473ml", price: 7, img: "brahma.png" },
+      { id: "b2", cat: "Bebidas", name: "Boa Latão", desc: "473ml", price: 7, img: "boa.webp" },
+      { id: "b3", cat: "Bebidas", name: "Heineken", desc: "Long neck", price: 9, img: "heineken.png", tag: "🍺 Premium" },
+      { id: "b4", cat: "Bebidas", name: "Stella Artois", desc: "Long neck", price: 9, img: "stella.png" },
+      { id: "b5", cat: "Bebidas", name: "Coca-Cola", desc: "Lata 350ml", price: 5, img: "cocacola.png" },
+      { id: "b6", cat: "Bebidas", name: "Coca-Cola Zero", desc: "Lata 350ml", price: 5, img: "cocacolazero.png" },
+      { id: "b7", cat: "Bebidas", name: "Guaraná", desc: "Lata 350ml", price: 4.5, img: "guarana.png" },
+      { id: "b8", cat: "Bebidas", name: "Pepsi", desc: "Lata 350ml", price: 4.5, img: "pepsi.png" },
+      { id: "b9", cat: "Bebidas", name: "Suco Natural", desc: "Suco da fruta", price: 5, img: "suco.jpg" },
+      { id: "b10", cat: "Bebidas", name: "Água sem Gás", desc: "500ml", price: 3, img: "agua.png" }
     ];
 
-    const state = {
-      cat: "Tudo",
-      q: "",
-      cart: loadCart(),
-      open: true
-    };
+    // State
+    let cart = JSON.parse(localStorage.getItem('espetinho_cart_pro') || '{}');
+    let currentCategory = "Tudo";
+    let searchQuery = "";
 
-    const tabsEl = document.getElementById("tabs");
-    const gridEl = document.getElementById("menuGrid");
-    const searchInput = document.getElementById("searchInput");
-    const cartCountEl = document.getElementById("cartCount");
-    const drawer = document.getElementById("drawer");
-    const backdrop = document.getElementById("backdrop");
-    const cartItemsEl = document.getElementById("cartItems");
-    const subtotalText = document.getElementById("subtotalText");
-    const feeText = document.getElementById("feeText");
-    const totalText = document.getElementById("totalText");
-    const notesEl = document.getElementById("notes");
-    const checkoutBtn = document.getElementById("checkoutBtn");
-    const statusPill = document.getElementById("statusPill");
-    const statusText = document.getElementById("statusText");
-    const closedBanner = document.getElementById("closedBanner");
+    const formatMoney = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const cartTotalItems = () => Object.values(cart).reduce((a, b) => a + b, 0);
+    const cartSubtotal = () => MENU.reduce((sum, item) => sum + (cart[item.id] || 0) * item.price, 0);
+    const saveCart = () => { localStorage.setItem('espetinho_cart_pro', JSON.stringify(cart)); updateCartUI(); updateCartCounter(); renderMenu(); };
     
-    document.getElementById("feeTop").textContent = money(RESTAURANT.deliveryFee);
+    const addItem = (id) => { cart[id] = (cart[id] || 0) + 1; saveCart(); };
+    const removeItem = (id) => { if (cart[id]) { cart[id]--; if (cart[id] <= 0) delete cart[id]; saveCart(); } };
+    const deleteItem = (id) => { delete cart[id]; saveCart(); };
 
-    function money(v){
-      return v.toLocaleString("pt-BR",{style:"currency",currency:RESTAURANT.currency});
-    }
-
-    function isOpenNow(){
-      const now = new Date();
-      const day = now.getDay();
-      const hour = now.getHours();
-      const minute = now.getMinutes();
-      const s = RESTAURANT.schedule;
-      
-      if (!s.openDays.includes(day)) return false;
-      if (hour < s.openHour || hour >= s.closeHour) return false;
-      return true;
-    }
-
-    function updateOpen(){
-      state.open = isOpenNow();
-      if(state.open){
-        statusPill.classList.add("open");
-        statusText.textContent = "Aberto agora";
-        closedBanner.style.display = "none";
-        checkoutBtn.disabled = false;
-        checkoutBtn.style.opacity = "1";
-      }else{
-        statusPill.classList.remove("open");
-        statusText.textContent = "Fechado";
-        closedBanner.style.display = "block";
-        checkoutBtn.disabled = true;
-        checkoutBtn.style.opacity = ".55";
-      }
-    }
-
-    function saveCart(){
-      localStorage.setItem("espetinho_cart", JSON.stringify(state.cart));
-    }
-    
-    function loadCart(){
-      try{ return JSON.parse(localStorage.getItem("espetinho_cart")) || {}; }
-      catch(e){ return {}; }
-    }
-    
-    function cartCount(){
-      return Object.values(state.cart).reduce((a,b)=>a+b,0);
-    }
-    
-    function subtotal(){
-      let sum=0;
-      for(const it of MENU){
-        const q = state.cart[it.id] || 0;
-        sum += it.price * q;
-      }
-      return sum;
-    }
-
-    function add(id){
-      state.cart[id] = (state.cart[id]||0)+1;
-      saveCart(); 
-      renderBadge();
-      if(drawer.classList.contains("open")) renderCart();
-    }
-    
-    function sub(id){
-      state.cart[id] = (state.cart[id]||0)-1;
-      if(state.cart[id] <= 0) delete state.cart[id];
-      saveCart(); 
-      renderBadge();
-      if(drawer.classList.contains("open")) renderCart();
-    }
-    
-    function del(id){
-      delete state.cart[id];
-      saveCart(); 
-      renderBadge();
-      if(drawer.classList.contains("open")) renderCart();
-    }
-
-    function categories(){
-      const set = new Set(MENU.map(i=>i.cat));
-      return ["Tudo", ...Array.from(set)];
-    }
-
-    function filtered(){
-      const q = state.q.trim().toLowerCase();
-      return MENU.filter(i=>{
-        const byCat = state.cat==="Tudo" || i.cat===state.cat;
-        const byQ = !q || (i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q));
-        return byCat && byQ;
+    function renderMenu() {
+      const filtered = MENU.filter(item => 
+        (currentCategory === "Tudo" || item.cat === currentCategory) &&
+        (item.name.toLowerCase().includes(searchQuery) || item.desc.toLowerCase().includes(searchQuery))
+      );
+      const grid = document.getElementById('menuGrid');
+      grid.innerHTML = filtered.map(item => `
+        <div class="menu-card">
+          <div class="menu-img">
+            ${item.tag ? `<div class="menu-tag">${item.tag}</div>` : ''}
+            <img src="${item.img}" onerror="this.src='https://placehold.co/400x300?text=🍢'">
+          </div>
+          <div class="menu-info">
+            <div class="menu-title">${item.name}</div>
+            <div class="menu-desc">${item.desc}</div>
+            <div class="menu-footer">
+              <div class="menu-price">${formatMoney(item.price)}</div>
+              <div class="qty-control">
+                <button class="qty-btn" data-action="sub" data-id="${item.id}">−</button>
+                <button class="qty-btn" data-action="add" data-id="${item.id}">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      document.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = btn.dataset.id;
+          if (btn.dataset.action === 'add') addItem(id);
+          else removeItem(id);
+        });
       });
     }
 
-    function renderTabs(){
-      tabsEl.innerHTML="";
-      for(const c of categories()){
-        const el=document.createElement("div");
-        el.className="chip"+(c===state.cat?" active":"");
-        el.textContent=c;
-        el.onclick=()=>{state.cat=c;renderTabs();renderMenu();};
-        tabsEl.appendChild(el);
-      }
-    }
-
-    function renderMenu(){
-      gridEl.innerHTML="";
-      for(const it of filtered()){
-        const card=document.createElement("article");
-        card.className="item";
-
-        const thumb=document.createElement("div");
-        thumb.className="thumb";
-        thumb.innerHTML=`<img src="${it.img}" alt="${it.name}" loading="lazy" onerror="this.src='https://placehold.co/400x300?text=Espetinho'">`;
-        if(it.tag){
-          const b=document.createElement("div");
-          b.className="badge";
-          b.textContent=it.tag;
-          thumb.appendChild(b);
-        }
-
-        const content=document.createElement("div");
-        content.className="content";
-        content.innerHTML=
-          `<div class="name">${it.name}</div>
-          <div class="desc">${it.desc}</div>
-          <div class="row">
-            <div class="price">${money(it.price)}</div>
-            <div class="qty">
-              <button class="iconbtn" aria-label="Diminuir">−</button>
-              <button class="iconbtn" aria-label="Adicionar">+</button>
-            </div>
-          </div>`
-        ;
-        const [m,p]=content.querySelectorAll(".iconbtn");
-        m.onclick=()=>{sub(it.id);};
-        p.onclick=()=>{add(it.id);};
-
-        card.appendChild(thumb);
-        card.appendChild(content);
-        gridEl.appendChild(card);
-      }
-    }
-
-    function openDrawer(){
-      drawer.classList.add("open");
-      backdrop.classList.add("open");
-      document.body.style.overflow = 'hidden';
-      renderCart();
-    }
-    
-    function closeDrawer(){
-      drawer.classList.remove("open");
-      backdrop.classList.remove("open");
-      document.body.style.overflow = '';
-    }
-
-    function renderBadge(){
-      cartCountEl.textContent = cartCount();
-    }
-
-    function renderCart(){
-      cartItemsEl.innerHTML="";
-      const entries = Object.entries(state.cart);
-
-      if(entries.length===0){
-        cartItemsEl.innerHTML = 
-          `<div class="notice subnote">
-            Seu carrinho está vazio. Adicione itens do cardápio 😉
-          </div>`
-        ;
-      }else{
-        for(const [id,qty] of entries){
-          const it = MENU.find(x=>x.id===id);
-          if(!it) continue;
-
-          const row=document.createElement("div");
-          row.className="lineitem";
-          row.innerHTML=
-            `<img src="${it.img}" alt="${it.name}" onerror="this.src='https://placehold.co/48x48?text=Food'">
-            <div>
-              <div class="li-title">${it.name}</div>
-              <div class="li-sub">${qty} × ${money(it.price)} = <b style="color:var(--text)">${money(it.price*qty)}</b></div>
-            </div>
-            <div class="li-actions">
-              <button class="iconbtn small" title="Diminuir">−</button>
-              <button class="iconbtn small" title="Adicionar">+</button>
-              <button class="iconbtn small trash" title="Remover">🗑</button>
-            </div>`
-          ;
-          const [m,p,t]=row.querySelectorAll("button");
-          m.onclick=()=>{sub(id);renderCart();};
-          p.onclick=()=>{add(id);renderCart();};
-          t.onclick=()=>{del(id);renderCart();};
-
-          cartItemsEl.appendChild(row);
-        }
-      }
-
-      const subT = subtotal();
-      const fee = entries.length ? RESTAURANT.deliveryFee : 0;
-      const total = subT + fee;
-
-      subtotalText.textContent = money(subT);
-      feeText.textContent = money(fee);
-      totalText.textContent = money(total);
-      renderBadge();
-    }
-
-    // Modal
-    const modal = document.getElementById("checkoutModal");
-    const modalBackdrop = document.getElementById("modalBackdrop");
-    const closeModalBtn = document.getElementById("closeModal");
-    const checkoutForm = document.getElementById("checkoutForm");
-    const backToCartBtn = document.getElementById("backToCart");
-
-    const cName = document.getElementById("cName");
-    const cPhone = document.getElementById("cPhone");
-    const cMode = document.getElementById("cMode");
-    const cPay = document.getElementById("cPay");
-    const addrRow = document.getElementById("addrRow");
-    const cAddress = document.getElementById("cAddress");
-    const cComp = document.getElementById("cComp");
-    const cRef = document.getElementById("cRef");
-    const cNeedChange = document.getElementById("cNeedChange");
-    const cChangeFor = document.getElementById("cChangeFor");
-    const cObs = document.getElementById("cObs");
-
-    function openModal(){
-      modal.classList.add("open");
-      modalBackdrop.classList.add("open");
-      document.body.style.overflow = 'hidden';
-      cObs.value = notesEl.value;
-      setTimeout(()=>cName.focus(), 50);
-    }
-    
-    function closeModal(){
-      modal.classList.remove("open");
-      modalBackdrop.classList.remove("open");
-      document.body.style.overflow = '';
-    }
-
-    function updateModeUI(){
-      const isDelivery = cMode.value === "Entrega";
-      addrRow.style.display = isDelivery ? "grid" : "none";
-      if(isDelivery){
-        cAddress.required = true;
+    function renderCartDrawer() {
+      const container = document.getElementById('cartItemsContainer');
+      const entries = Object.entries(cart);
+      if (entries.length === 0) {
+        container.innerHTML = '<div style="text-align:center; padding:40px; color:#999;">Seu carrinho está vazio</div>';
       } else {
-        cAddress.required = false;
+        container.innerHTML = entries.map(([id, qty]) => {
+          const item = MENU.find(i => i.id === id);
+          if (!item) return '';
+          return `
+            <div class="cart-item">
+              <img class="cart-item-img" src="${item.img}" onerror="this.src='https://placehold.co/52x52'">
+              <div><strong>${item.name}</strong><div>${qty} x ${formatMoney(item.price)} = <b>${formatMoney(item.price * qty)}</b></div></div>
+              <div style="display:flex; gap:6px;">
+                <button class="qty-btn cart-sub" data-id="${id}" style="width:36px;height:36px;">−</button>
+                <button class="qty-btn cart-add" data-id="${id}" style="width:36px;height:36px;">+</button>
+                <button class="qty-btn cart-del" data-id="${id}" style="width:36px;height:36px;">🗑</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+        container.querySelectorAll('.cart-sub').forEach(btn => btn.addEventListener('click', () => removeItem(btn.dataset.id)));
+        container.querySelectorAll('.cart-add').forEach(btn => btn.addEventListener('click', () => addItem(btn.dataset.id)));
+        container.querySelectorAll('.cart-del').forEach(btn => btn.addEventListener('click', () => deleteItem(btn.dataset.id)));
       }
+      const sub = cartSubtotal();
+      const fee = cartTotalItems() > 0 ? CONFIG.deliveryFee : 0;
+      document.getElementById('subtotalDisplay').innerText = formatMoney(sub);
+      document.getElementById('feeDisplay').innerText = formatMoney(fee);
+      document.getElementById('totalDisplay').innerText = formatMoney(sub + fee);
     }
+
+    function updateCartCounter() { document.getElementById('cartTotalCount').innerText = cartTotalItems(); }
+    function updateCartUI() { renderCartDrawer(); updateCartCounter(); }
+
+    function renderTabs() {
+      const cats = ["Tudo", ...new Set(MENU.map(i => i.cat))];
+      document.getElementById('tabsContainer').innerHTML = cats.map(c => `<div class="tab ${c === currentCategory ? 'active' : ''}" data-cat="${c}">${c}</div>`).join('');
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => { currentCategory = tab.dataset.cat; renderTabs(); renderMenu(); });
+      });
+    }
+
+    function isOpenNow() { const d=new Date(), day=d.getDay(), h=d.getHours(); return CONFIG.schedule.days.includes(day) && (h>=CONFIG.schedule.openHour && h<CONFIG.schedule.closeHour); }
+    function updateStatus() { const open=isOpenNow(); const pill=document.getElementById('statusPill'); if(open){ pill.classList.add('open'); document.getElementById('statusText').innerText='Aberto agora'; } else { pill.classList.remove('open'); document.getElementById('statusText').innerText='Fechado'; } }
+
+    // Drawer controls
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartBackdrop = document.getElementById('cartBackdrop');
+    function openCartDrawer() { renderCartDrawer(); cartDrawer.classList.add('open'); cartBackdrop.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeCartDrawer() { cartDrawer.classList.remove('open'); cartBackdrop.classList.remove('active'); document.body.style.overflow = ''; }
+    document.getElementById('cartFabBtn').onclick = openCartDrawer;
+    document.getElementById('closeCartBtn').onclick = closeCartDrawer;
+    cartBackdrop.onclick = closeCartDrawer;
+    document.getElementById('clearCartBtn').onclick = () => { if (confirm('Limpar todo o carrinho?')) { cart = {}; saveCart(); renderMenu(); } };
+
+    // Checkout
+    const checkoutDrawer = document.getElementById('checkoutDrawer');
+    const checkoutBackdrop = document.getElementById('checkoutBackdrop');
+    document.getElementById('finalizeOrderBtn').onclick = () => {
+      if (cartTotalItems() === 0) { alert('Seu carrinho está vazio.'); return; }
+      if (!isOpenNow()) { alert('Estamos fechados no momento. Horário: Terça a Sábado das 19h às 22h.'); return; }
+      document.getElementById('orderObs').value = document.getElementById('cartObservation').value;
+      checkoutDrawer.classList.add('open'); checkoutBackdrop.classList.add('active'); document.body.style.overflow = 'hidden';
+    };
+    function closeCheckout() { checkoutDrawer.classList.remove('open'); checkoutBackdrop.classList.remove('active'); document.body.style.overflow = ''; }
+    document.getElementById('closeCheckoutBtn').onclick = closeCheckout;
+    checkoutBackdrop.onclick = closeCheckout;
+
+    // Dinâmica
+    const orderType = document.getElementById('orderType');
+    const addressGroup = document.getElementById('addressGroup');
+    const paymentType = document.getElementById('paymentType');
+    const changeGroup = document.getElementById('changeGroup');
+    orderType.addEventListener('change', () => addressGroup.style.display = orderType.value === 'Entrega' ? 'block' : 'none');
+    paymentType.addEventListener('change', () => changeGroup.style.display = paymentType.value === 'Dinheiro' ? 'block' : 'none');
+    addressGroup.style.display = 'block';
+    changeGroup.style.display = 'none';
+
+    // Envio WhatsApp
+    document.getElementById('sendOrderBtn').onclick = () => {
+      const name = document.getElementById('clientName').value.trim();
+      if (!name) { alert('Por favor, informe seu nome.'); return; }
+      if (orderType.value === 'Entrega' && !document.getElementById('deliveryAddress').value.trim()) { alert('Informe o endereço para entrega.'); return; }
+      
+      let msg = `🍢 *${CONFIG.name}* - NOVO PEDIDO\n\n`;
+      msg += `*Cliente:* ${name}\n`;
+      const phone = document.getElementById('clientPhone').value.trim();
+      if (phone) msg += `*Telefone:* ${phone}\n`;
+      msg += `*Modalidade:* ${orderType.value === 'Entrega' ? '🚚 Entrega' : '🏠 Retirada'}\n`;
+      msg += `*Pagamento:* ${paymentType.value}\n`;
+      
+      if (orderType.value === 'Entrega') {
+        const addr = document.getElementById('deliveryAddress').value.trim();
+        const comp = document.getElementById('addressComplement').value.trim();
+        const ref = document.getElementById('addressReference').value.trim();
+        msg += `*Endereço:* ${addr}`;
+        if (comp) msg += `, ${comp}`;
+        if (ref) msg += ` (Ref: ${ref})`;
+        msg += `\n`;
+      }
+      
+      if (paymentType.value === 'Dinheiro' && document.getElementById('needChangeSelect').value === 'Sim') {
+        const changeVal = document.getElementById('changeValue').value;
+        if (changeVal && parseFloat(changeVal) > 0) msg += `*Troco para:* R$ ${parseFloat(changeVal).toFixed(2).replace('.', ',')}\n`;
+      }
+      
+      msg += `\n*ITENS:*\n`;
+      for (const [id, qty] of Object.entries(cart)) {
+        const item = MENU.find(i => i.id === id);
+        if (item) msg += `• ${qty}x ${item.name} — ${formatMoney(item.price * qty)}\n`;
+      }
+      const sub = cartSubtotal();
+      const fee = cartTotalItems() > 0 ? CONFIG.deliveryFee : 0;
+      msg += `\n*Subtotal:* ${formatMoney(sub)}\n*Taxa entrega:* ${formatMoney(fee)}\n*Total:* ${formatMoney(sub + fee)}\n`;
+      const obs = document.getElementById('orderObs').value.trim();
+      if (obs) msg += `\n*Observações:* ${obs}\n`;
+      msg += `\n📍 ${CONFIG.address}\n📱 ${CONFIG.whatsapp}`;
+      
+      const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+      closeCheckout();
+      window.open(url, '_blank');
+    };
+
+    // Eventos gerais
+    document.getElementById('searchInput').addEventListener('input', (e) => { searchQuery = e.target.value.toLowerCase(); renderMenu(); });
+    document.getElementById('heroExploreBtn').onclick = () => window.scrollTo({ top: document.querySelector('.topbar').offsetTop + 10, behavior: 'smooth' });
+    document.getElementById('infoModalBtn').onclick = () => alert(`${CONFIG.name}\n\n📅 Horário: Terça a Sábado — 19h às 22h\n📞 WhatsApp: ${CONFIG.whatsapp}\n📍 Endereço: ${CONFIG.address}\n🚚 Taxa de entrega: ${formatMoney(CONFIG.deliveryFee)}`);
     
-    function updateChangeUI(){
-      const isCash = cPay.value === "Dinheiro";
-      const need = cNeedChange.value === "Sim";
-      cNeedChange.disabled = !isCash;
-      if(isCash && need){
-        cChangeFor.disabled = false;
-        cChangeFor.required = true;
-      }else{
-        cChangeFor.disabled = true;
-        cChangeFor.required = false;
-        cChangeFor.value = "";
-      }
-      document.getElementById("changeRow").style.display = isCash ? "grid" : "none";
-    }
-
-    cMode.addEventListener("change", updateModeUI);
-    cPay.addEventListener("change", updateChangeUI);
-    cNeedChange.addEventListener("change", updateChangeUI);
-    updateModeUI();
-    updateChangeUI();
-
-    function buildWhatsAppMessage(){
-      const entries = Object.entries(state.cart);
-      const subT = subtotal();
-      const fee = entries.length ? RESTAURANT.deliveryFee : 0;
-      const total = subT + fee;
-
-      const name = cName.value.trim();
-      const phone = cPhone.value.trim();
-      const mode = cMode.value;
-      const pay = cPay.value;
-
-      const address = cAddress.value.trim();
-      const comp = cComp.value.trim();
-      const ref = cRef.value.trim();
-
-      const needChange = cNeedChange.value;
-      const changeFor = cChangeFor.value ? Number(cChangeFor.value).toFixed(2).replace(".", ",") : "";
-
-      const obs = cObs.value.trim();
-
-      let lines=[];
-      lines.push(`🍢 *Pedido - ${RESTAURANT.name}*`);
-      lines.push("");
-      lines.push(`*Cliente:* ${name}`);
-      if(phone) lines.push(`*Telefone:* ${phone}`);
-      lines.push(`*Modalidade:* ${mode}`);
-      lines.push(`*Pagamento:* ${pay}`);
-      if(pay === "Dinheiro" && needChange === "Sim"){
-        lines.push(`*Troco para:* R$ ${changeFor}`);
-      }
-
-      if(mode === "Entrega"){
-        lines.push("");
-        lines.push("*Endereço:*");
-        lines.push(address);
-        if(comp) lines.push(`Complemento: ${comp}`);
-        if(ref) lines.push(`Referência: ${ref}`);
-      }
-
-      lines.push("");
-      lines.push("*Itens:*");
-      for(const [id,qty] of entries){
-        const it = MENU.find(x=>x.id===id);
-        if(!it) continue;
-        lines.push(`• ${qty}x ${it.name} — ${money(it.price*qty)}`);
-      }
-
-      lines.push("");
-      lines.push(`*Subtotal:* ${money(subT)}`);
-      lines.push(`*Taxa entrega:* ${money(fee)}`);
-      lines.push(`*Total:* ${money(total)}`);
-
-      if(obs){
-        lines.push("");
-        lines.push("*Obs:* " + obs);
-      }
-
-      lines.push("");
-      lines.push(`📍 ${RESTAURANT.address}`);
-      lines.push(`📱 ${RESTAURANT.whatsappDisplay}`);
-
-      return lines.join("\n");
-    }
-
-    // Eventos
-    document.getElementById("openCart").onclick=openDrawer;
-    document.getElementById("closeCart").onclick=closeDrawer;
-    backdrop.onclick=closeDrawer;
-
-    document.getElementById("clearBtn").onclick=()=>{
-      if(confirm("Limpar todo o carrinho?")){
-        state.cart={}; 
-        saveCart(); 
-        renderCart();
-        renderBadge();
-      }
-    };
-
-    document.getElementById("btnCall").onclick=()=>{
-      const url = `https://wa.me/${RESTAURANT.whatsapp}?text=${encodeURIComponent("Olá! Quero fazer um pedido")}`;
-      window.open(url,"_blank");
-    };
-
-    document.getElementById("btnScrollMenu").onclick=()=>{
-      window.scrollTo({top: tabsEl.offsetTop-70, behavior:"smooth"});
-    };
-
-    document.getElementById("btnInfo").onclick=()=>{
-      alert(`${RESTAURANT.name}\n\nHorário: Terça a Sábado — 19:00 às 22:00\nWhatsApp: ${RESTAURANT.whatsappDisplay}\nEndereço: ${RESTAURANT.address}\n\nTaxa entrega: ${money(RESTAURANT.deliveryFee)}`);
-    };
-
-    searchInput.addEventListener("input",(e)=>{
-      state.q = e.target.value || "";
-      renderMenu();
-    });
-
-    checkoutBtn.onclick=()=>{
-      const entries = Object.entries(state.cart);
-      if(entries.length===0){ alert("Carrinho vazio"); return; }
-      if(!state.open){ alert("Estamos fechados agora. Horário: Terça a Sábado, 19:00 às 22:00"); return; }
-      openModal();
-    };
-
-    checkoutForm.addEventListener("submit",(e)=>{
-      e.preventDefault();
-      const entries = Object.entries(state.cart);
-      if(entries.length===0){ alert("Carrinho vazio"); closeModal(); return; }
-
-      if(cMode.value === "Entrega" && !cAddress.value.trim()){
-        alert("Informe o endereço para entrega");
-        cAddress.focus();
-        return;
-      }
-
-      if(cPay.value === "Dinheiro" && cNeedChange.value === "Sim"){
-        const v = parseFloat(cChangeFor.value);
-        if(!(v > 0)){
-          alert("Informe o valor do troco");
-          cChangeFor.focus();
-          return;
-        }
-      }
-
-      notesEl.value = cObs.value;
-
-      const msg = buildWhatsAppMessage();
-      const url = `https://wa.me/${RESTAURANT.whatsapp}?text=${encodeURIComponent(msg)}`;
-      closeModal();
-      window.open(url, "_blank");
-    });
-
-    closeModalBtn.onclick = closeModal;
-    modalBackdrop.onclick = closeModal;
-    backToCartBtn.onclick = ()=>{ closeModal(); openDrawer(); };
-
-    document.addEventListener("keydown",(e)=>{
-      if(e.key==="Escape" && modal.classList.contains("open")) closeModal();
-    });
-
+    // Slideshow
+    let slides = document.querySelectorAll('.slide-bg'), currentSlide = 0;
+    if (slides.length) { slides[0].classList.add('active'); setInterval(() => { slides[currentSlide].classList.remove('active'); currentSlide = (currentSlide + 1) % slides.length; slides[currentSlide].classList.add('active'); }, 5000); }
+    
+    // Inicialização
     renderTabs();
     renderMenu();
-    renderBadge();
-    updateOpen();
-    setInterval(updateOpen, 60000);
+    updateCartUI();
+    updateStatus();
+    setInterval(updateStatus, 60000);
   </script>
 </body>
 </html>
+```
