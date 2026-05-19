@@ -239,7 +239,7 @@
       transition: 0.2s;
     }
 
-    /* === INFO SECTION PROFISSIONAL - ÍCONES MENORES LADO A LADO === */
+    /* === INFO SECTION PROFISSIONAL === */
     .info-premium {
       max-width: 1280px;
       margin: 28px auto 0;
@@ -307,7 +307,6 @@
       color: var(--primary-dark);
     }
 
-    /* Address bar */
     .address-premium {
       background: linear-gradient(135deg, var(--primary-light), #fff7ed);
       border-radius: var(--radius-md);
@@ -416,32 +415,82 @@
     }
     .qty-btn:active { background: #eee; }
 
-    /* Cart Fab */
+    /* === CART FAB - CORRIGIDO E PERFEITO === */
     .cart-fab {
       position: fixed;
-      right: 20px;
-      bottom: 20px;
-      z-index: 85;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1000;
+      display: block;
+      cursor: pointer;
     }
+
     .cart-button {
       background: linear-gradient(135deg, var(--secondary), #1a1410);
       border: none;
-      padding: 14px 26px;
+      padding: 14px 28px;
       border-radius: 60px;
       color: white;
       font-weight: 800;
       display: flex;
-      gap: 10px;
+      gap: 12px;
       align-items: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
       cursor: pointer;
       font-size: 0.95rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      backdrop-filter: blur(4px);
     }
+
+    .cart-button:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .cart-button:active {
+      transform: scale(0.97);
+    }
+
     .cart-badge {
       background: var(--primary);
       padding: 4px 12px;
       border-radius: 40px;
       font-weight: 800;
+      font-size: 0.9rem;
+      min-width: 32px;
+      text-align: center;
+    }
+
+    /* Responsividade do botão do carrinho */
+    @media (max-width: 768px) {
+      .cart-fab {
+        right: 16px;
+        bottom: 16px;
+      }
+      .cart-button {
+        padding: 12px 22px;
+        font-size: 0.85rem;
+        gap: 8px;
+      }
+      .cart-badge {
+        padding: 3px 10px;
+        min-width: 28px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cart-fab {
+        right: 12px;
+        bottom: 12px;
+      }
+      .cart-button {
+        padding: 10px 18px;
+        font-size: 0.8rem;
+      }
+      .cart-badge {
+        padding: 2px 8px;
+        min-width: 24px;
+      }
     }
 
     /* Drawer */
@@ -455,7 +504,7 @@
       box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
       transform: translateX(100%);
       transition: transform 0.3s ease-out;
-      z-index: 105;
+      z-index: 1001;
       display: flex;
       flex-direction: column;
     }
@@ -467,7 +516,7 @@
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.5);
-      z-index: 95;
+      z-index: 999;
       display: none;
     }
     .backdrop.active { display: block; }
@@ -499,49 +548,19 @@
     }
     input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1); }
 
-    /* Responsividade */
     @media (max-width: 900px) {
-      .info-grid-premium {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-      }
+      .info-grid-premium { grid-template-columns: repeat(4, 1fr); gap: 8px; }
       .search-bar { display: none; }
-      .info-card-premium {
-        padding: 10px 4px;
-      }
-      .info-icon-premium {
-        width: 38px;
-        height: 38px;
-        font-size: 18px;
-      }
-      .info-title-premium {
-        font-size: 0.6rem;
-      }
-      .info-value-premium {
-        font-size: 0.75rem;
-      }
+      .info-card-premium { padding: 10px 4px; }
+      .info-icon-premium { width: 38px; height: 38px; font-size: 18px; }
+      .info-title-premium { font-size: 0.6rem; }
+      .info-value-premium { font-size: 0.75rem; }
     }
 
     @media (max-width: 600px) {
-      .info-grid-premium {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
-      .info-card-premium {
-        padding: 12px 8px;
-      }
+      .info-grid-premium { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .hero-logo { width: 90px; height: 90px; }
       .menu-grid { grid-template-columns: 1fr; }
-      .address-premium span:last-child {
-        font-size: 0.75rem;
-      }
-    }
-
-    @media (max-width: 380px) {
-      .info-grid-premium {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
     }
   </style>
 </head>
@@ -550,16 +569,16 @@
   <!-- HERO SLIDESHOW -->
   <section class="hero">
     <div class="slides-container">
-      <div class="slide-bg" style="background-image: url('capa.jpg');"></div>
-      <div class="slide-bg" style="background-image: url('carne.webp');"></div>
-      <div class="slide-bg" style="background-image: url('heineken.png');"></div>
+      <div class="slide-bg" style="background-image: url('Depositphotos_70458789_m-2015-768x512.jpg');"></div>
+      <div class="slide-bg" style="background-image: url('medalhão\ frango.webp');"></div>
+      <div class="slide-bg" style="background-image: url('feijão.jpg');"></div>
     </div>
     <div class="hero-content">
       <img class="hero-logo" src="logo.jpeg" alt="Espetinho Mania" onerror="this.src='https://placehold.co/120x120?text=🍢'">
       <h1>ESPETINHO MANIA</h1>
       <div class="hero-tagline">🔥 O verdadeiro sabor da brasa • Itacarambi - MG</div>
-      <div class="hero-hours">🕒 Terça a Sábado • 19h às 22h</div>
-      <button class="btn-hero" id="heroExploreBtn">📖 EXPLORAR CARDÁPIO <span>👇</span></button>
+      <div class="hero-hours">🔔 Terça a Sábado • 19h às 22h</div>
+      <button class="btn-hero" id="heroExploreBtn"> EXPLORAR CARDÁPIO </button>
     </div>
   </section>
 
@@ -578,7 +597,7 @@
     </div>
   </header>
 
-  <!-- === INFO SECTION PROFISSIONAL - ÍCONES MENORES LADO A LADO === -->
+  <!-- INFO SECTION -->
   <div class="info-premium">
     <div class="info-grid-premium">
       <div class="info-card-premium">
@@ -605,7 +624,7 @@
     <div class="address-premium">
       <span>📍</span>
       <span>Rotatória saída para Manga — Itacarambi/MG</span>
-      <span style="margin-left: auto; font-size: 0.7rem; color: var(--primary-dark);">📱 espetinhomania.pages.dev</span>
+      <span style="margin-left: auto; font-size: 0.7rem; color: var(--primary-dark);"></span>
     </div>
   </div>
 
@@ -615,8 +634,12 @@
   <!-- MENU GRID -->
   <div class="menu-grid" id="menuGrid"></div>
 
-  <!-- CART FAB -->
-  <div class="cart-fab"><button class="cart-button" id="cartFabBtn">🛒 <span class="cart-badge" id="cartTotalCount">0</span></button></div>
+  <!-- CART FAB - CORRIGIDO -->
+  <div class="cart-fab" id="cartFabContainer">
+    <button class="cart-button" id="cartFabBtn">
+      🛒 <span class="cart-badge" id="cartTotalCount">0</span>
+    </button>
+  </div>
 
   <!-- CART DRAWER -->
   <div class="backdrop" id="cartBackdrop"></div>
@@ -624,7 +647,11 @@
     <div class="drawer-header"><b style="font-size: 1.2rem;">Seu carrinho</b><button class="btn-icon" id="closeCartBtn">✖ Fechar</button></div>
     <div class="drawer-body" id="cartItemsContainer"></div>
     <div class="drawer-footer">
-      <div class="totals-card"><div class="totals-row"><span>Subtotal</span><b id="subtotalDisplay">R$ 0,00</b></div><div class="totals-row"><span>Taxa entrega</span><b id="feeDisplay">R$ 0,00</b></div><div class="totals-row"><span>Total</span><b id="totalDisplay">R$ 0,00</b></div></div>
+      <div class="totals-card">
+        <div class="totals-row"><span>Subtotal</span><b id="subtotalDisplay">R$ 0,00</b></div>
+        <div class="totals-row"><span>Taxa entrega</span><b id="feeDisplay">R$ 0,00</b></div>
+        <div class="totals-row"><span>Total</span><b id="totalDisplay">R$ 0,00</b></div>
+      </div>
       <textarea id="cartObservation" placeholder="Observações (ponto da carne, sem cebola...)" rows="2"></textarea>
       <button class="btn-icon" id="finalizeOrderBtn" style="background: var(--primary-gradient); color: white; border: none; width: 100%; margin-top: 12px; padding: 14px; font-weight: 700;">✅ Finalizar pedido</button>
       <button class="btn-icon" id="clearCartBtn" style="width: 100%; margin-top: 8px;">🧹 Limpar carrinho</button>
@@ -633,7 +660,7 @@
 
   <!-- CHECKOUT DRAWER -->
   <div class="backdrop" id="checkoutBackdrop"></div>
-  <div class="drawer" id="checkoutDrawer" style="z-index: 115;">
+  <div class="drawer" id="checkoutDrawer" style="z-index: 1002;">
     <div class="drawer-header"><b>Dados do pedido</b><button class="btn-icon" id="closeCheckoutBtn">✖</button></div>
     <div class="drawer-body">
       <input type="text" id="clientName" placeholder="Seu nome *" style="margin-bottom: 12px;">
@@ -685,7 +712,6 @@
       { id: "b10", cat: "Bebidas", name: "Água sem Gás", desc: "500ml", price: 3, img: "agua.png" }
     ];
 
-    // State
     let cart = JSON.parse(localStorage.getItem('espetinho_cart_pro') || '{}');
     let currentCategory = "Tudo";
     let searchQuery = "";
@@ -748,9 +774,9 @@
               <img class="cart-item-img" src="${item.img}" onerror="this.src='https://placehold.co/52x52'">
               <div><strong>${item.name}</strong><div>${qty} x ${formatMoney(item.price)} = <b>${formatMoney(item.price * qty)}</b></div></div>
               <div style="display:flex; gap:6px;">
-                <button class="qty-btn cart-sub" data-id="${id}" style="width:36px;height:36px;">−</button>
-                <button class="qty-btn cart-add" data-id="${id}" style="width:36px;height:36px;">+</button>
-                <button class="qty-btn cart-del" data-id="${id}" style="width:36px;height:36px;">🗑</button>
+                <button class="cart-sub" data-id="${id}" style="width:36px;height:36px; border-radius:10px; border:1px solid #ddd; background:#fefaf5; cursor:pointer;">−</button>
+                <button class="cart-add" data-id="${id}" style="width:36px;height:36px; border-radius:10px; border:1px solid #ddd; background:#fefaf5; cursor:pointer;">+</button>
+                <button class="cart-del" data-id="${id}" style="width:36px;height:36px; border-radius:10px; border:1px solid #ddd; background:#fefaf5; cursor:pointer;">🗑</button>
               </div>
             </div>
           `;
@@ -858,7 +884,7 @@
       window.open(url, '_blank');
     };
 
-    // Eventos gerais
+    // Eventos
     document.getElementById('searchInput').addEventListener('input', (e) => { searchQuery = e.target.value.toLowerCase(); renderMenu(); });
     document.getElementById('heroExploreBtn').onclick = () => window.scrollTo({ top: document.querySelector('.topbar').offsetTop + 10, behavior: 'smooth' });
     document.getElementById('infoModalBtn').onclick = () => alert(`${CONFIG.name}\n\n📅 Horário: Terça a Sábado — 19h às 22h\n📞 WhatsApp: ${CONFIG.whatsapp}\n📍 Endereço: ${CONFIG.address}\n🚚 Taxa de entrega: ${formatMoney(CONFIG.deliveryFee)}`);
@@ -867,7 +893,6 @@
     let slides = document.querySelectorAll('.slide-bg'), currentSlide = 0;
     if (slides.length) { slides[0].classList.add('active'); setInterval(() => { slides[currentSlide].classList.remove('active'); currentSlide = (currentSlide + 1) % slides.length; slides[currentSlide].classList.add('active'); }, 5000); }
     
-    // Inicialização
     renderTabs();
     renderMenu();
     updateCartUI();
