@@ -866,7 +866,7 @@
     <div class="drawer-body">
       <input type="text" id="clientName" placeholder="Seu nome *" style="margin-bottom: 12px;">
       <input type="tel" id="clientPhone" placeholder="Telefone (opcional)" style="margin-bottom: 12px;">
-      <select id="orderType" style="margin-bottom: 12px;"><option value="Entrega">🚚 Entrega</option><option value="Retirada">📍 Retirada no local</option></select>
+      <select id="orderType" style="margin-bottom: 12px;"><option value="Entrega"> Entrega</option><option value="Retirada">📍 Retirada no local</option></select>
       <select id="paymentType" style="margin-bottom: 12px;"><option value="Pix">❖ Pix</option><option value="Dinheiro">💵 Dinheiro</option><option value="Cartão">💳 Cartão</option></select>
       <div id="addressGroup">
         <input type="text" id="deliveryAddress" placeholder="Endereço completo *" style="margin-bottom: 12px;">
@@ -878,7 +878,7 @@
       </div>
       <textarea id="orderObs" placeholder="Observações adicionais" rows="2" style="margin-top: 12px;"></textarea>
     </div>
-    <div class="drawer-footer"><button class="btn-icon" id="sendOrderBtn" style="background: #25D366; color: white; border: none; width: 100%; padding: 14px; font-weight: 700; border-radius: var(--radius-md);">📤 ENVIAR PARA WHATSAPP</button></div>
+    <div class="drawer-footer"><button class="btn-icon" id="sendOrderBtn" style="background: #25D366; color: white; border: none; width: 100%; padding: 14px; font-weight: 700; border-radius: var(--radius-md);"> ENVIAR PARA WHATSAPP</button></div>
   </div>
 
   <script>
@@ -1197,7 +1197,7 @@
       msg += `*Cliente:* ${name}\n`;
       const phone = document.getElementById('clientPhone').value.trim();
       if (phone) msg += `*Telefone:* ${phone}\n`;
-      msg += `*Modalidade:* ${orderType.value === 'Entrega' ? '🚚 Entrega' : '📍 Retirada'}\n`;
+      msg += `*Modalidade:* ${orderType.value === 'Entrega' ? ' Entrega' : '📍 Retirada'}\n`;
       msg += `*Pagamento:* ${paymentType.value}\n`;
       
       if (orderType.value === 'Entrega') {
