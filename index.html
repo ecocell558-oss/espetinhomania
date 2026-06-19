@@ -854,8 +854,8 @@
         <div class="totals-row total"><span>Total</span><b id="totalDisplay">R$ 0,00</b></div>
       </div>
       <textarea id="cartObservation" placeholder="Observações (ponto da carne, sem cebola...)" rows="2" style="margin-bottom:10px;"></textarea>
-      <button class="btn-icon" id="finalizeOrderBtn" style="background: var(--primary-gradient); color: white; border: none; width: 100%; padding: 14px; font-weight: 700; border-radius: var(--radius-md);">✅ Finalizar pedido</button>
-      <button class="btn-icon" id="clearCartBtn" style="width: 100%; margin-top: 8px; color: #e74c3c; border-color: #e74c3c;">🗑️ Limpar carrinho</button>
+      <button class="btn-icon" id="finalizeOrderBtn" style="background: var(--primary-gradient); color: white; border: none; width: 100%; padding: 14px; font-weight: 700; border-radius: var(--radius-md);"> Finalizar pedido</button>
+      <button class="btn-icon" id="clearCartBtn" style="width: 100%; margin-top: 8px; color: #e74c3c; border-color: #e74c3c;"> Limpar carrinho</button>
     </div>
   </div>
 
@@ -1248,7 +1248,7 @@
     // Eventos
     document.getElementById('searchInput').addEventListener('input', (e) => { searchQuery = e.target.value.toLowerCase(); renderMenu(); });
     document.getElementById('heroExploreBtn').onclick = () => window.scrollTo({ top: document.querySelector('.topbar').offsetTop + 10, behavior: 'smooth' });
-    document.getElementById('infoModalBtn').onclick = () => alert(`${CONFIG.name}\n\n📅 Horário: Terça a Sábado — 19h às 22h\n📞 WhatsApp: ${CONFIG.whatsapp}\n📍 Endereço: ${CONFIG.address}\n🚚 Taxa de entrega: ${formatMoney(CONFIG.deliveryFee)}`);
+    document.getElementById('infoModalBtn').onclick = () => alert(`${CONFIG.name}\n\n📅 Horário: Terça a Sábado — 19h às 22h\n📞 WhatsApp: ${CONFIG.whatsapp}\n📍 Endereço: ${CONFIG.address}\n 🛵 Taxa de entrega: ${formatMoney(CONFIG.deliveryFee)}`);
     
     // Slideshow
     let slides = document.querySelectorAll('.slide-bg'), currentSlide = 0;
