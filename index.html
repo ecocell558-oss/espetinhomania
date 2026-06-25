@@ -109,29 +109,28 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
+    .hero-logo-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
     .hero-logo {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid var(--primary);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      margin-bottom: 1.2rem;
-      background: white;
-      transition: transform 0.3s ease;
+      width: 280px;
+      height: auto;
+      max-width: 90vw;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: block;
+      background: transparent;
+      border: none;
+      border-radius: 0;
     }
 
     .hero-logo:hover {
-      transform: scale(1.03);
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 9vw, 5rem);
-      font-weight: 800;
-      color: white;
-      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      letter-spacing: -0.02em;
-      line-height: 1.1;
+      transform: scale(1.04);
     }
 
     .hero-tagline {
@@ -481,6 +480,16 @@
       z-index: 1000;
       display: block;
       cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+    }
+
+    .cart-fab.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
     .cart-button {
@@ -748,7 +757,7 @@
 
     @media (max-width: 600px) {
       .info-grid-premium { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .hero-logo { width: 90px; height: 90px; }
+      .hero-logo { width: 200px; }
       .menu-grid { grid-template-columns: 1fr; }
       .scroll-indicator { bottom: 16px; font-size: 0.6rem; padding: 6px 14px; }
       .combo-options { grid-template-columns: 1fr; }
@@ -766,8 +775,9 @@
       <div class="slide-bg" style="background-image: url('feijão.jpg');"></div>
     </div>
     <div class="hero-content">
-      <img class="hero-logo" src="logo.jpeg" alt="Espetinho Mania" onerror="this.src='https://placehold.co/120x120?text=🍢'">
-      <h1>ESPETINHO MANIA</h1>
+      <div class="hero-logo-wrapper">
+        <img class="hero-logo" src="logo2.png" alt="Espetinho Mania" onerror="this.src='https://placehold.co/400x200?text=Espetinho+Mania'">
+      </div>
       <div class="hero-tagline">🔥 O verdadeiro sabor da brasa • Itacarambi - MG</div>
       <div class="hero-hours">Terça a Sábado • 19h às 22h</div>
       <button class="btn-hero" id="heroExploreBtn">↓ EXPLORAR CARDÁPIO</button>
@@ -1254,6 +1264,27 @@
     let slides = document.querySelectorAll('.slide-bg'), currentSlide = 0;
     if (slides.length) { slides[0].classList.add('active'); setInterval(() => { slides[currentSlide].classList.remove('active'); currentSlide = (currentSlide + 1) % slides.length; slides[currentSlide].classList.add('active'); }, 5000); }
     
+    // ====== CONTROLE DO CARRINHO FLUTUANTE ======
+    const cartFab = document.getElementById('cartFabContainer');
+    let cartFabVisible = false;
+
+    function handleScroll() {
+      const heroHeight = document.querySelector('.hero').offsetHeight;
+      const scrollY = window.scrollY;
+      
+      if (scrollY > heroHeight * 0.7 && !cartFabVisible) {
+        cartFab.classList.add('visible');
+        cartFabVisible = true;
+      } else if (scrollY <= heroHeight * 0.7 && cartFabVisible) {
+        cartFab.classList.remove('visible');
+        cartFabVisible = false;
+      }
+    }
+
+    // Verifica na primeira carga
+    setTimeout(handleScroll, 100);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     renderTabs();
     renderMenu();
     updateCartUI();
