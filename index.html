@@ -518,11 +518,14 @@
       transform: scale(0.97);
     }
 
-    .cart-icon-svg {
+    .cart-icon {
       width: 28px;
       height: 28px;
-      fill: white;
       flex-shrink: 0;
+      background: url('logo3.png') no-repeat center center;
+      background-size: 220% 220%;
+      display: inline-block;
+      border-radius: 0;
     }
 
     .cart-badge {
@@ -533,6 +536,7 @@
       font-size: 0.9rem;
       min-width: 32px;
       text-align: center;
+      color: #1a120c;
     }
 
     @media (max-width: 768px) {
@@ -545,13 +549,15 @@
         font-size: 0.85rem;
         gap: 8px;
       }
-      .cart-icon-svg {
+      .cart-icon {
         width: 24px;
         height: 24px;
+        background-size: 220% 220%;
       }
       .cart-badge {
         padding: 3px 10px;
         min-width: 28px;
+        font-size: 0.85rem;
       }
     }
 
@@ -565,9 +571,10 @@
         font-size: 0.75rem;
         gap: 6px;
       }
-      .cart-icon-svg {
+      .cart-icon {
         width: 20px;
         height: 20px;
+        background-size: 220% 220%;
       }
       .cart-badge {
         padding: 2px 8px;
@@ -842,9 +849,7 @@
   <!-- CART FAB - MOTOBOY -->
   <div class="cart-fab" id="cartFabContainer">
     <button class="cart-button" id="cartFabBtn">
-      <svg class="cart-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M19 7h-3V5.5C16 3.57 14.43 2 12.5 2S9 3.57 9 5.5V7H5c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-8-1.5C11 4.67 11.67 4 12.5 4S14 4.67 14 5.5V7h-3V5.5zM19 20H5V9h14v11zm-7-4.5c1.38 0 2.5-1.12 2.5-2.5s-1.12-2.5-2.5-2.5S9.5 11.62 9.5 13s1.12 2.5 2.5 2.5z"/>
-      </svg>
+      <span class="cart-icon"></span>
       <span class="cart-badge" id="cartTotalCount">0</span>
     </button>
   </div>
