@@ -798,7 +798,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <img class="brand-logo" src="logo.jpeg" onerror="this.src='https://placehold.co/44x44'">
+        <img class="brand-logo" src="logo.png" onerror="this.src='https://placehold.co/44x44'">
         <div class="brand-text"><strong>Espetinho Mania</strong><span>Itacarambi - MG</span></div>
       </div>
       <div class="search-bar"><span></span><input type="text" id="searchInput" placeholder="Buscar no cardápio..."></div>
@@ -928,23 +928,26 @@
     const MENU = [
       { id: "e1", cat: "Espetinhos", name: "Espetinho de Carne", desc: "Carne bovina selecionada", price: 7, img: "carne.jpg", tag: "🔥 Mais vendido" },
       { id: "e2", cat: "Espetinhos", name: "Medalhão de Frango", desc: "Medalhão suculento", price: 7, img: "medalhão frango.webp" },
-      { id: "e3", cat: "Espetinhos", name: "Medalhão de Queijo", desc: "Queijo derretido na brasa", price: 6, img: "medalhãoqueijo.jpg" },
-      { id: "e4", cat: "Espetinhos", name: "Espetinho de Frango", desc: "Frango temperado", price: 6, img: "frango.webp" },
-      { id: "e5", cat: "Espetinhos", name: "Espetinho de Porco", desc: "Carne suína", price: 6, img: "costelinha.jpg" },
-      { id: "e6", cat: "Espetinhos", name: "Espetinho de Linguiça", desc: "Linguiça toscana", price: 6, img: "luiguiça.jpg" },
-      { id: "e7", cat: "Espetinhos", name: "Espetinho de Coração", desc: "Coração de frango", price: 6, img: "coração.png", tag: "⭐ Especial" },
-      { id: "a1", cat: "Acompanhamentos", name: "Feijão Tropeiro", desc: "Feijão tropeiro tradicional", price: 10, img: "feijão.jpg" },
-      { id: "a2", cat: "Acompanhamentos", name: "Arroz Branco", desc: "Arroz soltinho", price: 5, img: "arroz.jpg" },
+      { id: "e3", cat: "Espetinhos", name: "Medalhão de Queijo", desc: "Queijo derretido na brasa", price: 7, img: "medalhãoqueijo.jpg" },
+      { id: "e4", cat: "Espetinhos", name: "Espetinho de Frango", desc: "Frango temperado", price: 7, img: "frango.webp" },
+      { id: "e5", cat: "Espetinhos", name: "Espetinho de Porco", desc: "Carne suína", price: 7, img: "costelinha.jpg" },
+      { id: "e6", cat: "Espetinhos", name: "Espetinho de Linguiça", desc: "Linguiça toscana", price: 7, img: "luiguiça.jpg" },
+      { id: "e7", cat: "Espetinhos", name: "Espetinho de Coração", desc: "Coração de frango", price: 7, img: "coração.png", tag: "⭐ Especial" },
+      { id: "a1", cat: "Acompanhamentos", name: "Feijão Tropeiro", desc: "Feijão tropeiro tradicional", price: 12, img: "feijão.jpg" },
+      { id: "a2", cat: "Acompanhamentos", name: "Arroz Branco", desc: "Arroz soltinho", price: 6, img: "arroz.jpg" },
       { id: "b1", cat: "Bebidas", name: "Brahma Latão", desc: "473ml", price: 7, img: "brahma.png" },
       { id: "b2", cat: "Bebidas", name: "Boa Latão", desc: "473ml", price: 7, img: "boa.webp" },
       { id: "b3", cat: "Bebidas", name: "Heineken", desc: "Long neck", price: 9, img: "heineken.png", tag: "🍺 Premium" },
       { id: "b4", cat: "Bebidas", name: "Stella Artois", desc: "Long neck", price: 9, img: "stella.png" },
       { id: "b5", cat: "Bebidas", name: "Coca-Cola", desc: "Lata 350ml", price: 5, img: "cocacola.png" },
       { id: "b6", cat: "Bebidas", name: "Coca-Cola Zero", desc: "Lata 350ml", price: 5, img: "cocacolazero.png" },
-      { id: "b7", cat: "Bebidas", name: "Guaraná", desc: "Lata 350ml", price: 4.5, img: "guarana.png" },
-      { id: "b8", cat: "Bebidas", name: "Pepsi", desc: "Lata 350ml", price: 4.5, img: "pepsi.png" },
+      { id: "b7", cat: "Bebidas", name: "Guaraná", desc: "Lata 350ml", price: 5, img: "guarana.png" },
+      { id: "b8", cat: "Bebidas", name: "Pepsi", desc: "Lata 350ml", price: 5, img: "pepsi.png" },
       { id: "b10", cat: "Bebidas", name: "Água sem Gás", desc: "500ml", price: 3, img: "agua.png" },
-      { id: "b9", cat: "Bebidas", name: "Suco Natural", desc: "Suco da fruta", price: 5, img: "istock-1477660200-tog5w3hqmesl.webp" }
+      { id: "b9", cat: "Bebidas", name: "Suco Natural", desc: "Suco da fruta", price: 5, img: "istock-1477660200-tog5w3hqmesl.webp" },
+      // NOVOS ITENS ADICIONADOS:
+      { id: "b11", cat: "Bebidas", name: "Coca-Cola 1L", desc: "Garrafa 1 litro", price: 9, img: "coca1l.webp" },
+      { id: "b12", cat: "Bebidas", name: "Pepsi 1L", desc: "Garrafa 1 litro", price: 8, img: "pepsi1l.png" }
     ];
 
     // Carrinho: { itemId: quantidade }
