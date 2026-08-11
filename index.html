@@ -786,7 +786,7 @@
         <img class="hero-logo" src="logo2.png" alt="Madruga Espetos" onerror="this.src='https://placehold.co/400x200?text=Espetinho+Mania'">
       </div>
       <div class="hero-tagline">🔥 O verdadeiro sabor na brasa • Itacarambi - MG</div>
-      <div class="hero-hours">Terça a Sábado • 19h às 22h</div>
+      <div class="hero-hours">Segunda a Sábado • 19h às 22h</div>
       <button class="btn-hero" id="heroExploreBtn">↓ EXPLORAR CARDÁPIO</button>
     </div>
     <div class="scroll-indicator">
@@ -903,7 +903,7 @@
       whatsapp: "5538997287061",
       address: "Rotatória saída para Manga — Itacarambi/MG",
       deliveryFee: 2.00,
-      schedule: { days: [2,3,4,5,6], openHour: 19, closeHour: 22 }
+      schedule: { days: [1,2,3,4,5,6], openHour: 19, closeHour: 22 } // Alterado para Segunda a Sábado
     };
 
     // Bebidas e acompanhamentos
@@ -930,7 +930,7 @@
       { id: "e1", cat: "Espetinhos", name: "Espetinho de Carne", desc: "Carne bovina selecionada", price: 7, img: "carne.jpg", tag: "🔥 Mais vendido" },
       { id: "e2", cat: "Espetinhos", name: "Medalhão de Frango", desc: "Medalhão suculento", price: 7, img: "medalhão frango.webp" },
       { id: "e3", cat: "Espetinhos", name: "Medalhão de Queijo", desc: "Queijo derretido na brasa", price: 7, img: "medalhãoqueijo.jpg" },
-      { id: "e4", cat: "Espetinhos", name: "Espetinho de Frango", desc: "Frango temperado", price: 7, img: "frango.webp" },
+      { id: "e4", cat: "Espetinhos", name: "Espetinho de Frango", desc: "Frango temperado", price: 7, img: "frango.jpg" },
       { id: "e5", cat: "Espetinhos", name: "Espetinho de Porco", desc: "Carne suína", price: 7, img: "costelinha.jpg" },
       { id: "e6", cat: "Espetinhos", name: "Espetinho de Linguiça", desc: "Linguiça toscana", price: 7, img: "luiguiça.jpg" },
       { id: "e7", cat: "Espetinhos", name: "Espetinho de Coração", desc: "Coração de frango", price: 7, img: "coração.png", tag: "⭐ Especial" },
@@ -1189,7 +1189,7 @@
     const checkoutBackdrop = document.getElementById('checkoutBackdrop');
     document.getElementById('finalizeOrderBtn').onclick = () => {
       if (cartTotalItems() === 0) { alert('Seu carrinho está vazio.'); return; }
-      if (!isOpenNow()) { alert('Estamos fechados no momento. Horário: Terça a Sábado das 19h às 22h.'); return; }
+      if (!isOpenNow()) { alert('Estamos fechados no momento. Horário: Segunda a Sábado das 19h às 22h.'); return; }
       document.getElementById('orderObs').value = document.getElementById('cartObservation').value;
       checkoutDrawer.classList.add('open'); checkoutBackdrop.classList.add('active'); document.body.style.overflow = 'hidden';
     };
@@ -1268,7 +1268,7 @@
     // Eventos
     document.getElementById('searchInput').addEventListener('input', (e) => { searchQuery = e.target.value.toLowerCase(); renderMenu(); });
     document.getElementById('heroExploreBtn').onclick = () => window.scrollTo({ top: document.querySelector('.topbar').offsetTop + 10, behavior: 'smooth' });
-    document.getElementById('infoModalBtn').onclick = () => alert(`${CONFIG.name}\n\n📅 Horário: Terça a Sábado — 19h às 22h\n📞 WhatsApp: ${CONFIG.whatsapp}\n📍 Endereço: ${CONFIG.address}\n 🛵 Taxa de entrega: ${formatMoney(CONFIG.deliveryFee)}`);
+    document.getElementById('infoModalBtn').onclick = () => alert(`${CONFIG.name}\n\n📅 Horário: Segunda a Sábado — 19h às 22h\n📞 WhatsApp: ${CONFIG.whatsapp}\n📍 Endereço: ${CONFIG.address}\n 🛵 Taxa de entrega: ${formatMoney(CONFIG.deliveryFee)}`);
     
     // Slideshow
     let slides = document.querySelectorAll('.slide-bg'), currentSlide = 0;
