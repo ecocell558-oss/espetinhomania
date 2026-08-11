@@ -46,7 +46,6 @@
       overflow-x: hidden;
     }
 
-    /* === HERO === */
     .hero {
       position: relative;
       width: 100%;
@@ -217,7 +216,6 @@
       100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
     }
 
-    /* Topbar */
     .topbar {
       position: sticky;
       top: 0;
@@ -296,7 +294,6 @@
       transition: 0.2s;
     }
 
-    /* === INFO SECTION === */
     .info-premium {
       max-width: 1280px;
       margin: 28px auto 0;
@@ -386,7 +383,6 @@
       color: var(--secondary);
     }
 
-    /* Tabs */
     .tabs-section {
       max-width: 1280px;
       margin: 32px auto 0;
@@ -417,7 +413,6 @@
       box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
     }
 
-    /* Menu Grid */
     .menu-grid {
       max-width: 1280px;
       margin: 0 auto;
@@ -472,7 +467,6 @@
     }
     .qty-btn:active { background: #eee; }
 
-    /* === CART FAB - MOTOBOY === */
     .cart-fab {
       position: fixed;
       right: 24px;
@@ -583,7 +577,6 @@
       }
     }
 
-    /* Drawer */
     .drawer {
       position: fixed;
       right: 0;
@@ -625,7 +618,6 @@
     }
     .backdrop.active { display: block; }
 
-    /* Cart Item */
     .cart-item {
       background: white;
       border-radius: var(--radius-md);
@@ -686,7 +678,6 @@
     }
     .cart-item-remove:hover { color: #e74c3c; }
 
-    /* Combo options */
     .combo-options {
       margin-top: 10px;
       padding-top: 10px;
@@ -903,10 +894,10 @@
       whatsapp: "5538997287061",
       address: "Rotatória saída para Manga — Itacarambi/MG",
       deliveryFee: 2.00,
-      schedule: { days: [1,2,3,4,5,6], openHour: 19, closeHour: 22 } // Alterado para Segunda a Sábado
+      schedule: { days: [1,2,3,4,5,6], openHour: 19, closeHour: 22 }
     };
 
-    // Bebidas e acompanhamentos
+    // ===== PREÇOS CORRETOS (IGUAIS AO CARDÁPIO) =====
     const BEBIDAS = [
       { id: 'b1', name: 'Brahma Latão', price: 7 },
       { id: 'b2', name: 'Boa Latão', price: 7 },
@@ -914,16 +905,18 @@
       { id: 'b4', name: 'Stella Artois', price: 9 },
       { id: 'b5', name: 'Coca-Cola', price: 5 },
       { id: 'b6', name: 'Coca-Cola Zero', price: 5 },
-      { id: 'b7', name: 'Guaraná', price: 4.5 },
-      { id: 'b8', name: 'Pepsi', price: 4.5 },
+      { id: 'b7', name: 'Guaraná', price: 5 },
+      { id: 'b8', name: 'Pepsi', price: 5 },
       { id: 'b10', name: 'Água sem Gás', price: 3 },
-      { id: 'b9', name: 'Suco Natural', price: 5 },
-      { id: 'b13', name: 'Guaraná 1L', price: 8 }  // NOVO ITEM ADICIONADO
+      { id: 'b11', name: 'Coca-Cola 1L', price: 9 },
+      { id: 'b12', name: 'Pepsi 1L', price: 8 },
+      { id: 'b13', name: 'Guaraná 1L', price: 8 },
+      { id: 'b9', name: 'Suco Natural', price: 5 }
     ];
 
     const ACOMPANHAMENTOS = [
-      { id: 'a1', name: 'Feijão Tropeiro', price: 10 },
-      { id: 'a2', name: 'Arroz Branco', price: 5 }
+      { id: 'a1', name: 'Feijão Tropeiro', price: 12 },
+      { id: 'a2', name: 'Arroz Branco', price: 6 }
     ];
 
     const MENU = [
@@ -945,16 +938,13 @@
       { id: "b7", cat: "Bebidas", name: "Guaraná", desc: "Lata 350ml", price: 5, img: "guarana.png" },
       { id: "b8", cat: "Bebidas", name: "Pepsi", desc: "Lata 350ml", price: 5, img: "pepsi.png" },
       { id: "b10", cat: "Bebidas", name: "Água sem Gás", desc: "500ml", price: 3, img: "agua.png" },
-      { id: "b9", cat: "Bebidas", name: "Sucos Natural", desc: "Suco da fruta", price: 5, img: "istock-1477660200-tog5w3hqmesl.webp" },
-      // NOVOS ITENS ADICIONADOS:
       { id: "b11", cat: "Bebidas", name: "Coca-Cola 1L", desc: "Garrafa 1 litro", price: 9, img: "coca1l.webp" },
       { id: "b12", cat: "Bebidas", name: "Pepsi 1L", desc: "Garrafa 1 litro", price: 8, img: "pepsi1l.png" },
-      { id: "b13", cat: "Bebidas", name: "Guaraná 1L", desc: "Garrafa 1 litro", price: 8, img: "guarana1l.png" } // NOVO ITEM ADICIONADO
+      { id: "b13", cat: "Bebidas", name: "Guaraná 1L", desc: "Garrafa 1 litro", price: 8, img: "guarana1l.png" },
+      { id: "b9", cat: "Bebidas", name: "Suco Natural", desc: "Suco da fruta", price: 5, img: "istock-1477660200-tog5w3hqmesl.webp" }
     ];
 
-    // Carrinho: { itemId: quantidade }
     let cart = JSON.parse(localStorage.getItem('espetinho_cart_pro') || '{}');
-    // Combos: { itemId: { bebida: id, acompanhamento: id } }
     let combos = JSON.parse(localStorage.getItem('espetinho_combos_pro') || '{}');
 
     let currentCategory = "Tudo";
@@ -1174,7 +1164,6 @@
       } 
     }
 
-    // Drawer controls
     const cartDrawer = document.getElementById('cartDrawer');
     const cartBackdrop = document.getElementById('cartBackdrop');
     function openCartDrawer() { renderCartDrawer(); cartDrawer.classList.add('open'); cartBackdrop.classList.add('active'); document.body.style.overflow = 'hidden'; }
@@ -1184,7 +1173,6 @@
     cartBackdrop.onclick = closeCartDrawer;
     document.getElementById('clearCartBtn').onclick = () => { if (confirm('Limpar todo o carrinho?')) { cart = {}; combos = {}; saveCart(); renderMenu(); } };
 
-    // Checkout
     const checkoutDrawer = document.getElementById('checkoutDrawer');
     const checkoutBackdrop = document.getElementById('checkoutBackdrop');
     document.getElementById('finalizeOrderBtn').onclick = () => {
@@ -1197,7 +1185,6 @@
     document.getElementById('closeCheckoutBtn').onclick = closeCheckout;
     checkoutBackdrop.onclick = closeCheckout;
 
-    // Dinâmica
     const orderType = document.getElementById('orderType');
     const addressGroup = document.getElementById('addressGroup');
     const paymentType = document.getElementById('paymentType');
@@ -1207,7 +1194,6 @@
     addressGroup.style.display = 'block';
     changeGroup.style.display = 'none';
 
-    // Envio WhatsApp
     document.getElementById('sendOrderBtn').onclick = () => {
       const name = document.getElementById('clientName').value.trim();
       if (!name) { alert('Por favor, informe seu nome.'); return; }
@@ -1265,16 +1251,13 @@
       window.open(url, '_blank');
     };
 
-    // Eventos
     document.getElementById('searchInput').addEventListener('input', (e) => { searchQuery = e.target.value.toLowerCase(); renderMenu(); });
     document.getElementById('heroExploreBtn').onclick = () => window.scrollTo({ top: document.querySelector('.topbar').offsetTop + 10, behavior: 'smooth' });
     document.getElementById('infoModalBtn').onclick = () => alert(`${CONFIG.name}\n\n📅 Horário: Segunda a Sábado — 19h às 22h\n📞 WhatsApp: ${CONFIG.whatsapp}\n📍 Endereço: ${CONFIG.address}\n 🛵 Taxa de entrega: ${formatMoney(CONFIG.deliveryFee)}`);
     
-    // Slideshow
     let slides = document.querySelectorAll('.slide-bg'), currentSlide = 0;
     if (slides.length) { slides[0].classList.add('active'); setInterval(() => { slides[currentSlide].classList.remove('active'); currentSlide = (currentSlide + 1) % slides.length; slides[currentSlide].classList.add('active'); }, 5000); }
     
-    // ====== CONTROLE DO CARRINHO FLUTUANTE ======
     const cartFab = document.getElementById('cartFabContainer');
     let cartFabVisible = false;
 
@@ -1291,7 +1274,6 @@
       }
     }
 
-    // Verifica na primeira carga
     setTimeout(handleScroll, 100);
     window.addEventListener('scroll', handleScroll, { passive: true });
 
